@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 100" fill="none" role="img" aria-label="YieldPass">
+  <defs>
+    <linearGradient id="yp-gold" x1="18" y1="30" x2="120" y2="78" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F0D589"/>
+      <stop offset="0.55" stop-color="#E3C36C"/>
+      <stop offset="1" stop-color="#C9A24B"/>
+    </linearGradient>
+    <filter id="yp-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#yp-glow)">
+    <!-- ticket / pass body -->
+    <rect x="18" y="30" width="86" height="48" rx="11"
+          fill="none" stroke="url(#yp-gold)" stroke-width="3.4"/>
+
+    <!-- tear-line perforation -->
+    <g fill="url(#yp-gold)">
+      <circle cx="32" cy="39" r="1.8"/>
+      <circle cx="32" cy="47.5" r="1.8"/>
+      <circle cx="32" cy="56" r="1.8"/>
+      <circle cx="32" cy="64.5" r="1.8"/>
+      <circle cx="32" cy="73" r="1.8"/>
+    </g>
+
+    <!-- the "Y": left arm + stem -->
+    <path d="M44 41 L61 57 L61 71" stroke="url(#yp-gold)" stroke-width="3.6"
+          stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- right arm extended into a rising yield arrow that breaks out top-right -->
+    <path d="M61 57 Q 91 53 120 27" stroke="url(#yp-gold)" stroke-width="3.6"
+          stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M111 24 L121 27 L118 37" stroke="url(#yp-gold)" stroke-width="3.6"
+          stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</svg>
