@@ -11,10 +11,8 @@ interface CountUpProps {
   className?: string;
 }
 
-/**
- * Animates a number from 0 to `value` (ease-out cubic) the first time it
- * enters the viewport, then tracks `value` changes with a short re-animation.
- */
+// Counts up from 0 to `value` (ease-out cubic) the first time it scrolls into
+// view, then does a quick re-animate whenever `value` changes after that.
 export function CountUp({ value, decimals = 0, prefix = "", suffix = "", duration = 1100, className }: CountUpProps) {
   const [display, setDisplay]   = useState(0);
   const elRef                   = useRef<HTMLSpanElement>(null);

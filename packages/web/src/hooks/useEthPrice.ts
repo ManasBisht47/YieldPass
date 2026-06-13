@@ -7,10 +7,8 @@ interface EthPriceResponse {
   source: "coingecko" | "oracle" | "static";
 }
 
-/**
- * Live ETH/USD price via /api/price/eth (CoinGecko → oracle → static fallback).
- * Refreshes every 60s while the page is open.
- */
+// Live ETH/USD from /api/price/eth (CoinGecko, falls back to the oracle then a
+// static value). Re-fetches every 60s while the page is open.
 export function useEthPrice() {
   const { data, isLoading } = useQuery<EthPriceResponse>({
     queryKey: ["eth-price"],

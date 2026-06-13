@@ -2,18 +2,9 @@
 
 import { ShieldCheck, Eye, AlertTriangle, Skull } from "lucide-react";
 
-/**
- * Aave-style health factor education + live gauge.
- *
- *   HF = liquidation threshold ÷ current LTV
- *
- * Zones (industry-standard semantics):
- *   ≥ 1.50        Safe       — comfortable buffer
- *   1.20 – 1.50   Monitor    — fine, but watch ETH price
- *   1.00 – 1.20   High risk  — one dip from liquidation
- *   < 1.00        Liquidated — anyone can close your position
- */
-
+// HF = liquidation threshold / current LTV — how far you are from getting
+// liquidated. Four bands on the same cutoffs Aave-style UIs use: >=1.5 safe,
+// 1.2-1.5 keep an eye on it, 1.0-1.2 danger, <1.0 already gone.
 const ZONES = [
   { min: 1.5, label: "Safe",      range: "≥ 1.50",      icon: ShieldCheck,   color: "text-primary",  bg: "bg-primary/10 border-primary/25",
     desc: "Comfortable buffer. A normal market dip won't touch you." },
@@ -25,7 +16,7 @@ const ZONES = [
     desc: "Anyone can repay your debt and take your collateral plus a 5% bonus. Avoid at all costs." },
 ];
 
-/** Position of an HF value on the 0→2.0+ gauge, as a percentage. */
+// where an HF lands on the 0–2.5 gauge, clamped to 1–99% so the marker stays on-bar
 function gaugePos(hf: number) {
   return Math.min(Math.max((hf / 2.5) * 100, 1), 99);
 }
