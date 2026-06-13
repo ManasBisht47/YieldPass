@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+dist/
+out/
+build/
+*.tsbuildinfo
+
+# Hardhat
+packages/contracts/artifacts/
+packages/contracts/cache/
+packages/contracts/typechain-types/
+packages/contracts/deployments/
+
+# Environment & secrets — never commit real values
+.env
+.env.local
+.env*.local
+
+# Turborepo
+.turbo/
+
+# Editors & OS
+.vscode/
+.idea/
+.DS_Store
+*.log
