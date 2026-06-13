@@ -1,67 +1,75 @@
 # YieldPass
 
-Reputation-based yield on QIE. Stake native QIE, earn from real QIEDex liquidity, and the more you build on-chain trust, the better your terms get — higher yield weighting on staking, better LTV and cheaper borrow rates on lending.
+Reputation-based yield on QIE. You stake native QIE and earn from real QIEDex
+trading fees, and the more on-chain trust you build the better your terms get:
+a bigger slice of the staking pool, higher LTV and cheaper rates on lending.
 
-Live on QIE Mainnet (chain 1990).
+Live on QIE mainnet (chain 1990).
 
----
+## why i built it
 
-## Why we built this
+Most DeFi treats a brand new wallet and one that's behaved well for months
+exactly the same. It's safe but there's no reason to be a good actor.
 
-Most DeFi treats everyone the same. A first-day wallet and someone who's been honest with the protocol for months get the exact same rate. That's safe, but it leaves a lot on the table — there's no reason to behave well because good behaviour earns you nothing.
+YieldPass reads an on-chain credit score (you pass KYC and opt in first) and uses
+it to weight your share of the yield and to unlock better lending terms. No score
+still earns the base rate, nothing taken away. Build a score and your capital just
+works a bit harder.
 
-We wanted to flip that. YieldPass reads an on-chain reputation/credit score (gated by KYC + an explicit opt-in) and uses it to weight your share of the yield pool and to unlock better lending terms. No score? You still earn the base rate, nothing taken away. Build a score, opt in, and your capital just works harder.
+The hard part isn't the boost, it's stopping people from gaming it. A naive
+"reputation = more yield" design gets drained by whales and latecomers in a week,
+so most of the work went into the anti-abuse side.
 
-The tricky part isn't the boost — it's making sure nobody can game it. A naive "reputation = more yield" design gets drained by whales and latecomers in a week. Most of the engineering effort went into the anti-abuse side, which is the part we're actually proud of.
+## two products
 
-## The two products
+**Staking.** Stake native QIE in one transaction. Under the hood it wraps to WQIE
+and 20% goes into the QIEDex WQIE/QUSDC pool as real liquidity, so the yield is
+actual trading fees, not an emissions number. The rest stays as liquid reserve so
+small unstakes are instant. Rewards are split with a MasterChef-style accumulator
+(more on why below).
 
-**Staking.** You stake native QIE in a single transaction. Under the hood it gets wrapped to WQIE and a portion (20%) is auto-deposited into the QIEDex WQIE/QUSDC pool as real liquidity — so the yield is actual trading-fee revenue, not a number we made up. The other 80% stays as liquid reserve so small unstakes return 1:1 instantly. Yield is distributed with a MasterChef-style accumulator (more on that below).
+**Lending.** Supply QUSDC to earn interest, or borrow against WETH. Rates come
+from a jump-rate model (2% base, climbs with utilisation). Your score moves your
+LTV ladder (60 -> 75%) and gives a borrow-rate discount (up to 12%). High-score
+borrowers also get a short grace window before liquidation instead of an instant
+wipe.
 
-**Lending.** Supply QUSDC to earn interest, or borrow against collateral. Rates come from a jump-rate interest model (2% base, climbing with utilisation). Your reputation tier gives you a better loan-to-value ladder (60% → 75%) and a borrow-rate discount (up to 12%). High-score borrowers also get a short grace window before liquidation instead of getting instantly wiped.
+## the parts i'm actually happy with
 
-## The interesting engineering
+**Milking-proof yield.** The first vault used a shared pool with first-come
+accrual. Testing on mainnet I noticed a big wallet could stake right before a
+harvest and skim yield the earlier stakers had earned. Rewrote it around a
+MasterChef accumulator so you only ever earn yield distributed after you joined.
+Checked it on mainnet: a latecomer staking 5x the pool claimed zero of the past
+yield.
 
-### Milking-proof yield (the bug we caught ourselves)
+**Effective shares.** Your weight isn't raw principal, it's
+`principal -> score multiplier on the capped slice -> lock multiplier`. The score
+boost only applies up to an anti-whale cap, so one whale can't buy the whole pool.
 
-Our first vault used a shared yield pool with first-come-first-served accrual. While auditing on mainnet we realised a large wallet could stake right before a harvest and skim yield that earlier stakers had actually earned. It wasn't theft from the treasury — the treasury's isolated — but it was unfair distribution, which is just as bad for a yield product.
+**Treasury can't be drained.** Fees are swept to a fixed treasury each harvest,
+borrow/redeem accounting uses `balanceOf - protocolFeeAccrued`, and the fee
+withdrawal is admin-only and hardcoded to the treasury.
 
-We rewrote the vault around a **MasterChef accumulator** (`accYieldPerShare`). Every staker only earns yield distributed *after* they join, weighted by their effective shares. We proved the fix on mainnet: a latecomer staking 5× the existing pool claimed exactly zero of the past yield. That's the behaviour you want.
+**Oracle with guardrails.** The keeper key can only move the price +/-20% per
+update, admin can force-set in an emergency, and borrow/liquidation refuse to run
+on a price older than 3 hours so a dead keeper freezes things safely instead of
+acting on stale data.
 
-### Effective shares
+## stack
 
-Your weight in the pool isn't just your principal. It's:
+- contracts: Solidity 0.8.20, Hardhat
+- web: Next.js (app router), wagmi + viem, Tailwind
+- keeper: small TypeScript bots for price sync, harvest, liquidation
+- chain: QIE mainnet, ~1-2s finality
 
-```
-effective = (capped_principal × score_multiplier) + uncapped_principal, then × lock_bonus
-```
+Monorepo with three packages: `contracts`, `web`, `keeper`.
 
-- **Score multiplier** (1.0× → 1.5×) only applies if you've passed KYC and opted in.
-- **Anti-whale cap** — the boost only applies up to a cap; stake above that earns base weighting. Whales can't buy the whole pool.
-- **Lock bonus** rewards longer commitment.
-
-### Treasury can't be drained
-
-Protocol fees are swept to a fixed treasury address every harvest. Borrow/redeem accounting uses `balanceOf − protocolFeeAccrued` so fees and user funds never get confused, and the fee-withdrawal function is admin-only and hardcoded to the treasury. We went looking for a drain path during the audit and didn't find one.
-
-### Price oracle with guardrails
-
-The oracle updater key can only move the price ±20% per update (a compromised keeper can't print a fake price), while an admin can force-set in a real emergency. Borrow and liquidation both refuse to run if the price is older than 3 hours, so the protocol freezes safely instead of acting on stale data.
-
-## Stack
-
-- **Contracts** — Solidity 0.8.20, Hardhat (hardhat-deploy)
-- **Frontend** — Next.js (App Router), wagmi + viem, Tailwind
-- **Keepers** — TypeScript bots for price sync (CoinGecko), harvest, and liquidations
-- **Chain** — QIE Mainnet, chain ID 1990, ~1–2s finality
-
-Monorepo, three packages: `contracts`, `web`, `keeper`.
-
-## Deployed contracts (QIE Mainnet)
+## deployed (QIE mainnet)
 
 | Contract | Address |
 |---|---|
-| YieldVault (accumulator) | `0x7ea4E80BeD86d19AacaFc2BB5034F80FFd40C032` |
+| YieldVault | `0x7ea4E80BeD86d19AacaFc2BB5034F80FFd40C032` |
 | YieldStrategy | `0x67239F1Da1c6c9F615C7A5b472a2a522EEC0271f` |
 | LendingPool | `0x38E5B71fA348BC4b702BFbD61780B1003e6AD57C` |
 | PriceOracle | `0x98138ae95a7302DE36105fE801e033EF186384a6` |
@@ -70,43 +78,42 @@ Monorepo, three packages: `contracts`, `web`, `keeper`.
 | NullifierRegistry | `0xFF67e614A49E6cde64951b7b879C8Beb84718D9c` |
 | InsuranceFund | `0xb19c1D8bF4ec7657D59061006Be2166ef754A3c9` |
 
-Tokens: WQIE `0x0087904D95BEe9E5F24dc8852804b547981A9139`, QUSDC `0x3F43DA82eC9A4f5285F10FaF1F26EcA7319E5DA5`. Staking liquidity goes into the live QIEDex WQIE/QUSDC pool.
+Tokens: WQIE `0x0087904D95BEe9E5F24dc8852804b547981A9139`, QUSDC
+`0x3F43DA82eC9A4f5285F10FaF1F26EcA7319E5DA5`. Explorer: https://mainnet.qie.digital/
 
-Explorer: https://mainnet.qie.digital/
-
-## Running it locally
-
-You'll need Node 18+ and a wallet with a little QIE for gas.
+## running locally
 
 ```bash
 npm install
 
-# frontend
 cd packages/web
-cp .env.local.example .env.local   # fill in addresses (defaults point at mainnet)
-npm run dev                          # http://localhost:3000
-
-# contracts (if you want to redeploy)
-cd packages/contracts
-npx hardhat deploy --network qie-mainnet --tags Launch
+cp .env.example .env.local   # fill in the values
+npm run dev                   # http://localhost:3000
 ```
 
-The keepers (`packages/keeper`) keep the oracle fresh and run harvests. For a demo the price keeper is the one to have running — otherwise the on-chain price drifts from the live feed:
+If you need a fresh oracle price while developing:
 
 ```bash
-cd packages/keeper
-npm run price-keeper
+cd packages/keeper && npm run price-keeper
 ```
 
-## What works, and what's honest about it
+## what works, and what doesn't yet
 
-Staking is the mature path and it's fully working on mainnet — stake, the QIEDex liquidity trigger, unstake, claim, and the reputation-weighted distribution are all verified with real (tiny) transactions on chain. Lending supply and redeem work too.
+Staking is the solid path and it's fully working on mainnet: stake, the QIEDex
+liquidity trigger, unstake, claim, and the reputation-weighted split are all
+verified with real (tiny) transactions. Lending supply and redeem work too.
 
-The one gap we'll call out plainly: the **borrow/repay** path is statically reviewed and deployed but we haven't run it end-to-end on mainnet yet (we couldn't get the test collateral token in time for the deadline). The guards are all there — flash-loan protection, LTV checks, the fresh-price requirement — it just hasn't had its live smoke test. Didn't want to claim otherwise.
+The honest gap: borrow/repay is built and reviewed but I haven't run it end to end
+on mainnet yet, couldn't get test WETH together in time. The guards are all there
+(flash-loan block, LTV checks, stale-price freeze), it just hasn't had its live
+smoke test.
 
-Hardening still on the list for a real public launch (not needed for the demo): moving admin to a multisig, daemonising the keepers, and a third-party audit.
+KYC currently goes through the QIEPass sandbox, so new users verify with a testnet
+DID. Everything else (staking, lending, scores) is on mainnet.
 
-## Layout
+See `TODO.md` for the running list.
+
+## layout
 
 ```
 packages/
