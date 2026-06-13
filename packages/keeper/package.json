@@ -1,0 +1,27 @@
+{
+  "name": "@yieldpass/keeper",
+  "version": "1.0.0",
+  "private": true,
+  "description": "YieldPass keeper bot \u2014 daily harvest and yield injection",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "simulate": "ts-node src/index.ts --simulate",
+    "harvest": "ts-node src/index.ts --once",
+    "price-sync": "ts-node src/price-keeper.ts",
+    "price-keeper": "ts-node src/index.ts --price-only"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "node-cron": "^3.0.3",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/node-cron": "^3.0.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}
