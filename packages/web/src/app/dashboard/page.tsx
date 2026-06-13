@@ -168,7 +168,7 @@ export default function DashboardPage() {
           />
         </div>
 
-        {/* ── Membership pass — the signature card ─────────────────────────── */}
+        {/* ── Membership pass - the signature card ─────────────────────────── */}
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
           <div className="hover-lift relative rounded-2xl border border-gold/25 bg-card overflow-hidden glow-card-pink">
             {/* Gold sheen sweep */}
@@ -192,7 +192,7 @@ export default function DashboardPage() {
                     ({(nextBand.multiplierBps / 10_000).toFixed(1)}× APY)
                   </p>
                 ) : (
-                  <p className="text-xs text-gold">Highest tier reached — 1.5× APY active</p>
+                  <p className="text-xs text-gold">Highest tier reached - 1.5× APY active</p>
                 )}
               </div>
 
@@ -217,7 +217,7 @@ export default function DashboardPage() {
 
             <div className="perforation mx-6 sm:mx-8" />
 
-            {/* Pass stub — the three verification steps */}
+            {/* Pass stub - the three verification steps */}
             <div className="relative grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border/40">
               <PassStep
                 label="KYC Identity"
@@ -300,7 +300,7 @@ export default function DashboardPage() {
                     <div>
                       <p className="text-[11px] text-muted-foreground uppercase tracking-wider">Your APY</p>
                       <p className="num font-semibold text-base text-primary mt-0.5">
-                        {effectiveApyPercent ? `${effectiveApyPercent.toFixed(2)}%` : "—"}
+                        {effectiveApyPercent ? `${effectiveApyPercent.toFixed(2)}%` : "-"}
                       </p>
                     </div>
                     <div>
@@ -327,7 +327,7 @@ export default function DashboardPage() {
               ) : (
                 <>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Stake native QIE — one transaction, no approvals. The protocol provides
+                    Stake native QIE - one transaction, no approvals. The protocol provides
                     QIEDex liquidity and trading fees come back daily, multiplied up to 1.5× by your score.
                   </p>
                   <Button size="sm" className="w-full group" render={(props) => <Link {...props} href="/stake" />}>
@@ -370,7 +370,7 @@ export default function DashboardPage() {
                     </div>
                     <div>
                       <p className="text-[11px] text-muted-foreground uppercase tracking-wider">Borrowed</p>
-                      <p className="num font-semibold text-base mt-0.5">{debt > 0 ? `$${debt.toFixed(2)}` : "—"}</p>
+                      <p className="num font-semibold text-base mt-0.5">{debt > 0 ? `$${debt.toFixed(2)}` : "-"}</p>
                     </div>
                     <div>
                       <p className="text-[11px] text-muted-foreground uppercase tracking-wider">Claimable</p>
@@ -389,7 +389,7 @@ export default function DashboardPage() {
               ) : (
                 <>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Supply QUSDC and earn interest from overcollateralised borrowers — rates
+                    Supply QUSDC and earn interest from overcollateralised borrowers - rates
                     adjust with utilisation. Or borrow QUSDC against WETH; reputation unlocks
                     better LTV and discounts.
                   </p>
@@ -428,7 +428,7 @@ export default function DashboardPage() {
                 <span className="text-primary font-medium">Staking</span> earns real QIEDex trading fees
                 (85% to stakers, 10% treasury, 5% insurance). {" "}
                 <span className="text-gold font-medium">Lending</span> earns interest paid by
-                overcollateralised borrowers. No emissions — {" "}
+                overcollateralised borrowers. No emissions - {" "}
                 <Link href="/faq" className="underline-grow text-foreground transition-colors">
                   read the full FAQ
                 </Link>.

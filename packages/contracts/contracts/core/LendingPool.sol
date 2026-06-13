@@ -10,7 +10,7 @@ import "../interfaces/registries/IReputationRegistry.sol";
 import "./PriceOracle.sol";
 import "./InterestRateModel.sol";
 
-// LendingPool — two-sided QUSDC market.
+// LendingPool - two-sided QUSDC market.
 //
 // Supply side: drop in QUSDC, earn a cut of borrower interest (MasterChef
 // accInterestPerShare, same trick as the vault). Borrow side: put up WETH, draw
@@ -42,7 +42,7 @@ contract LendingPool is AccessControl, ReentrancyGuard, Pausable {
     uint256 public constant LIQ_BUFFER_BPS         =   800;  // +8 % above max LTV triggers liq.
     uint256 public constant MAX_UTIL_BPS           = 9_000;  // 90 % utilisation cap
     uint256 public constant GRACE_PERIOD           = 2 hours;
-    // Borrow/liquidate refuse to act on a price older than this — protects
+    // Borrow/liquidate refuse to act on a price older than this - protects
     // against a dead oracle keeper leaving loans mispriced.
     uint256 public constant MAX_PRICE_AGE          = 3 hours;
     uint256 public constant GRACE_SCORE_THRESHOLD  =   800;

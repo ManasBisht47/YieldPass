@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
   try {
     lockStatus = await readLockStatus(childAddress as Address);
   } catch {
-    // Contract not deployed yet — allow to proceed with nonce generation
+    // Contract not deployed yet - allow to proceed with nonce generation
   }
 
   if (lockStatus.isLocked) {

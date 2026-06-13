@@ -23,17 +23,17 @@ async function tick() {
   log(`  strategyReserve: ${(Number(health.reserveBalance) / 1e18).toFixed(4)} QIE`);
 
   if (MODE_SIMULATE) {
-    log("Mode: SIMULATE — injecting mock yield via injectYield()");
+    log("Mode: SIMULATE - injecting mock yield via injectYield()");
     await runSimulate();
   } else {
-    log("Mode: HARVEST — calling harvestAndDistribute()");
+    log("Mode: HARVEST - calling harvestAndDistribute()");
     await runHarvest();
   }
 }
 
 if (MODE_PRICE_ONLY) {
-  // Price-sync daemon only — ideal for testnet where harvest has no real LP fees
-  log(`Price keeper started — cron: "${PRICE_CRON}" (>0.5% drift or 1h staleness triggers update)`);
+  // Price-sync daemon only - ideal for testnet where harvest has no real LP fees
+  log(`Price keeper started - cron: "${PRICE_CRON}" (>0.5% drift or 1h staleness triggers update)`);
   cron.schedule(PRICE_CRON, () => {
     syncPrice().catch(err => log(`PRICE ERROR: ${err.message}`));
   }, { timezone: "UTC" });
@@ -43,14 +43,14 @@ if (MODE_PRICE_ONLY) {
     .then(() => process.exit(0))
     .catch(err => { console.error(err); process.exit(1); });
 } else {
-  log(`Keeper started — harvest cron: "${CRON_EXPR}", price cron: "${PRICE_CRON}"`);
+  log(`Keeper started - harvest cron: "${CRON_EXPR}", price cron: "${PRICE_CRON}"`);
 
   // Daily yield harvest
   cron.schedule(CRON_EXPR, () => {
     tick().catch(err => log(`ERROR: ${err.message}`));
   }, { timezone: "UTC" });
 
-  // Oracle price sync — every 5 min, pushes only on >0.5% drift or 1h staleness
+  // Oracle price sync - every 5 min, pushes only on >0.5% drift or 1h staleness
   cron.schedule(PRICE_CRON, () => {
     syncPrice().catch(err => log(`PRICE ERROR: ${err.message}`));
   }, { timezone: "UTC" });

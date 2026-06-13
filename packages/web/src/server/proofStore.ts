@@ -4,7 +4,7 @@
 // TTL: 10 minutes. Entries are evicted lazily on read or write.
 
 export interface OracleResult {
-  // null on a re-sync — the proof is already committed, only the score is signed
+  // null on a re-sync - the proof is already committed, only the score is signed
   commitProof: {
     proofHash:          `0x${string}`;
     proofTypeHash:      `0x${string}`;
@@ -32,7 +32,7 @@ interface Entry {
   createdAt:        number;
 }
 
-const TTL_MS = 30 * 60 * 1000; // 30 minutes — user may take time to complete proof flow
+const TTL_MS = 30 * 60 * 1000; // 30 minutes - user may take time to complete proof flow
 const store  = new Map<string, Entry>();
 
 function evict() {

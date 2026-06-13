@@ -58,7 +58,7 @@ async function main() {
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
 
   if (receipt.status === "reverted") {
-    console.error("[mint] REVERTED — check funder has minter role");
+    console.error("[mint] REVERTED - check funder has minter role");
     process.exit(1);
   }
 

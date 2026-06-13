@@ -1,7 +1,7 @@
 export const CONTRACT_ADDRESSES = {
   "qie-testnet": {
     chainId: 1983,
-    qusdc:              "" as `0x${string}`,  // MockQUSDC — filled after testnet deploy
+    qusdc:              "" as `0x${string}`,  // MockQUSDC - filled after testnet deploy
     nullifierRegistry:  "" as `0x${string}`,
     reputationRegistry: "" as `0x${string}`,
     insuranceFund:      "" as `0x${string}`,

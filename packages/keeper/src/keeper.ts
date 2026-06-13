@@ -17,7 +17,7 @@ const qieTestnet = defineChain({
   rpcUrls: { default: { http: [process.env.RPC_URL ?? "https://rpc1testnet.qie.digital/"] } },
 });
 
-// QIE testnet requires explicit gas price — auto-estimate is too low
+// QIE testnet requires explicit gas price - auto-estimate is too low
 const GAS_PRICE = 10_000_000_000n; // 10 gwei
 
 // ── Config ────────────────────────────────────────────────────────────────────
@@ -31,7 +31,7 @@ function cfg(key: string): `0x${string}` {
 const STRATEGY_ADDR = cfg("YIELD_STRATEGY_ADDRESS");
 const VAULT_ADDR    = cfg("YIELD_VAULT_ADDRESS");
 const WQIE_ADDR     = cfg("WQIE_ADDRESS");
-// Staking asset is native QIE held as WQIE — 18 decimals.
+// Staking asset is native QIE held as WQIE - 18 decimals.
 const TOKEN_DEC     = 18;
 const SIMULATE_AMT  = BigInt(process.env.SIMULATE_YIELD_AMOUNT ?? "100000000000000000"); // 0.1 QIE default
 
@@ -109,16 +109,16 @@ export async function runHarvest() {
 
   console.log(`[keeper] harvestAndDistribute tx: ${hash}`);
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
-  console.log(`[keeper] Confirmed in block ${receipt.blockNumber} — status: ${receipt.status}`);
+  console.log(`[keeper] Confirmed in block ${receipt.blockNumber} - status: ${receipt.status}`);
 
   if (receipt.status === "reverted") {
-    throw new Error("harvestAndDistribute reverted — check LP balance and roles");
+    throw new Error("harvestAndDistribute reverted - check LP balance and roles");
   }
 
   console.log("[keeper] Harvest complete.");
 }
 
-// ── Simulate (testnet — funder wraps QIE→WQIE into strategy, keeper injects) ──
+// ── Simulate (testnet - funder wraps QIE→WQIE into strategy, keeper injects) ──
 
 export async function runSimulate() {
   const { publicClient, walletClient, account } = getClients();
@@ -135,7 +135,7 @@ export async function runSimulate() {
       address: VAULT_ADDR, abi: VAULT_ABI, functionName: "totalStaked",
     }) as bigint;
     if (totalStaked === 0n) {
-      console.log("[keeper] totalStaked is 0 — nothing to target, skipping injection.");
+      console.log("[keeper] totalStaked is 0 - nothing to target, skipping injection.");
       return;
     }
     injectAmt = (totalStaked * targetBps * 10_000n) / (10_000n * 365n * 8_500n) + 1n;
@@ -145,7 +145,7 @@ export async function runSimulate() {
 
   // Funder wraps native QIE → WQIE and sends it to the strategy.
   const funderKey = process.env.FUNDER_PRIVATE_KEY;
-  if (!funderKey) throw new Error("FUNDER_PRIVATE_KEY not set — needed for simulate mode");
+  if (!funderKey) throw new Error("FUNDER_PRIVATE_KEY not set - needed for simulate mode");
   const funder = privateKeyToAccount(funderKey as `0x${string}`);
   const funderClient = createWalletClient({ account: funder, chain: qieTestnet, transport: http(qieTestnet.rpcUrls.default.http[0]) });
 
@@ -174,7 +174,7 @@ export async function runSimulate() {
   if (xferReceipt.status === "reverted") throw new Error("WQIE transfer to strategy reverted");
   console.log(`[keeper] Wrapped & sent ${formatUnits(injectAmt, TOKEN_DEC)} QIE (as WQIE) into YieldStrategy`);
 
-  // Step 2: Keeper calls injectYield — strategy splits and forwards to vault
+  // Step 2: Keeper calls injectYield - strategy splits and forwards to vault
   const injectHash = await walletClient.writeContract({
     address:      STRATEGY_ADDR,
     abi:          STRATEGY_ABI,
@@ -184,10 +184,10 @@ export async function runSimulate() {
     gasPrice:     GAS_PRICE,
   });
   const receipt = await publicClient.waitForTransactionReceipt({ hash: injectHash });
-  console.log(`[keeper] injectYield confirmed in block ${receipt.blockNumber} — status: ${receipt.status}`);
+  console.log(`[keeper] injectYield confirmed in block ${receipt.blockNumber} - status: ${receipt.status}`);
 
   if (receipt.status === "reverted") {
-    throw new Error("injectYield reverted — check KEEPER_ROLE and vault address");
+    throw new Error("injectYield reverted - check KEEPER_ROLE and vault address");
   }
 
   // Breakdown: 85% stakers, 10% treasury, 5% insurance

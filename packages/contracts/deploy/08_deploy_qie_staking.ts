@@ -1,7 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 
-// This is where staking switched from QUSDC to native QIE — people stake the
+// This is where staking switched from QUSDC to native QIE - people stake the
 // chain's own coin, it gets wrapped to WQIE, and the strategy LPs it on QIEDex.
 // Redeploys WQIE-flavoured Insurance/Strategy/Vault; the lending side keeps its
 // QUSDC instances. (Superseded by 10_deploy_launch for actual launches.)
@@ -42,7 +42,7 @@ const deploy: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   });
   log(`InsuranceFundQIE: ${fund.address}`);
 
-  // ── YieldStrategy (WQIE) — vault placeholder, set after vault deploy ────
+  // ── YieldStrategy (WQIE) - vault placeholder, set after vault deploy ────
   const strategy = await deploy("YieldStrategyQIE", {
     contract: "YieldStrategy",
     from: deployer,

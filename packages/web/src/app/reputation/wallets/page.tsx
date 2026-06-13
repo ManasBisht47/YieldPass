@@ -226,7 +226,7 @@ export default function WalletsPage() {
           </p>
         </div>
 
-        {/* Step progress bar — shown only during active flow */}
+        {/* Step progress bar - shown only during active flow */}
         {inFlow && (
           <div className="flex items-center gap-1">
             {FLOW_STEPS.map((s, i) => {
@@ -298,7 +298,7 @@ export default function WalletsPage() {
           </Card>
         )}
 
-        {/* Step 1 — Enter child address */}
+        {/* Step 1 - Enter child address */}
         {(currentStepId === "idle" || currentStepId === "checking") && (
           <Card>
             <CardHeader>
@@ -349,7 +349,7 @@ export default function WalletsPage() {
           </Card>
         )}
 
-        {/* Step 2 — Sign with master wallet */}
+        {/* Step 2 - Sign with master wallet */}
         {currentStepId === "nonce_ready" && (
           <StepCard
             stepNum={1}
@@ -363,7 +363,7 @@ export default function WalletsPage() {
           </StepCard>
         )}
 
-        {/* Step 3 — Switch to child wallet and sign */}
+        {/* Step 3 - Switch to child wallet and sign */}
         {currentStepId === "master_signed" && (() => {
           const onChild = address?.toLowerCase() === childInput.toLowerCase();
           return (
@@ -383,7 +383,7 @@ export default function WalletsPage() {
                   <p>
                     Currently on{" "}
                     <span className="font-mono text-white/70">{address?.slice(0, 6)}••••{address?.slice(-4)}</span>
-                    {" "}— switch to{" "}
+                    {" "}- switch to{" "}
                     <span className="font-mono text-white/70">{childInput.slice(0, 6)}••••{childInput.slice(-4)}</span>.
                     We&apos;ll auto-detect when you&apos;re ready.
                   </p>
@@ -405,7 +405,7 @@ export default function WalletsPage() {
           );
         })()}
 
-        {/* Step 4 — Submit transaction */}
+        {/* Step 4 - Submit transaction */}
         {(currentStepId === "child_signed" || currentStepId === "submitting") && (() => {
           const onMaster = address?.toLowerCase() !== childInput.toLowerCase();
           return (
@@ -445,7 +445,7 @@ export default function WalletsPage() {
                 <span className="font-mono font-semibold text-gold">+0 pts</span>
               </div>
               <p className="text-xs text-muted-foreground">
-                Score from DEX wallets is calculated from on-chain trading history — volume, trade count, and wallet age on QIE network. A freshly linked wallet with no QIE DEX activity starts at 0 pts and earns up to <span className="text-white/60">+250 pts</span> as history accumulates.
+                Score from DEX wallets is calculated from on-chain trading history - volume, trade count, and wallet age on QIE network. A freshly linked wallet with no QIE DEX activity starts at 0 pts and earns up to <span className="text-white/60">+250 pts</span> as history accumulates.
               </p>
               <Button size="sm" className="w-full" onClick={() => setStep({ id: "idle" })}>Link another wallet</Button>
             </CardContent>
@@ -455,9 +455,9 @@ export default function WalletsPage() {
         {/* Info */}
         <Card>
           <CardContent className="pt-4 text-xs text-muted-foreground space-y-1">
-            <p>• Points are earned from DEX trading history — volume, trade count, and wallet age on QIE.</p>
+            <p>• Points are earned from DEX trading history - volume, trade count, and wallet age on QIE.</p>
             <p>• Top 3 wallets by volume are counted (max 10 linked). Max potential: <span className="text-white/50">+250 pts</span>.</p>
-            <p>• Linking is irreversible — the child wallet is permanently locked globally.</p>
+            <p>• Linking is irreversible - the child wallet is permanently locked globally.</p>
           </CardContent>
         </Card>
 

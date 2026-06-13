@@ -1,7 +1,7 @@
 // Hourly housekeeping for the lending side: sweep accrued protocol fees to the
 // treasury once they're worth the gas, and print the current rates/util/supplier
 // yield so we can eyeball the pool. Supplier interest itself flows automatically
-// on repay() — this script is just the fee sweep + a status dump.
+// on repay() - this script is just the fee sweep + a status dump.
 //
 // Run: npx ts-node src/harvest-lending.ts   (cron: 0 * * * *)
 // Needs ADMIN_PRIVATE_KEY (admin on LendingPool) in packages/keeper/.env.
@@ -37,7 +37,7 @@ const LENDING_ABI = parseAbi([
 ]);
 
 const LENDING_POOL = (process.env.LENDING_POOL_ADDRESS ?? "0x09dBB5FA18f57c508696d9939C635d82B1F3bF66") as `0x${string}`;
-const FEE_THRESHOLD = 1_000_000n; // 1 QUSDC (6 dec) — minimum to withdraw
+const FEE_THRESHOLD = 1_000_000n; // 1 QUSDC (6 dec) - minimum to withdraw
 
 async function main() {
   const admin = privateKeyToAccount(

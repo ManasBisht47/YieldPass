@@ -9,13 +9,13 @@ const TICKER_ITEMS = [
   { label: "Max score boost", value: "1.5×" },
   { label: "Staker share", value: "85%" },
   { label: "Lock boost", value: "up to 1.15×" },
-  { label: "Borrow LTV", value: "60–75%" },
+  { label: "Borrow LTV", value: "60-75%" },
   { label: "Rate discount", value: "up to −12%" },
   { label: "Insurance fund", value: "5% of yield" },
   { label: "Token emissions", value: "Zero" },
 ];
 
-// Simplified mark for the floating coins — just the Y + rising arrow (no ticket
+// Simplified mark for the floating coins - just the Y + rising arrow (no ticket
 // frame), so it stays legible at coin size. Uses currentColor to sit on the disc.
 function CoinGlyph({ className = "" }: { className?: string }) {
   return (
@@ -39,7 +39,7 @@ export default function HomePage() {
         <div className="aurora w-105 h-105 bg-primary/14 -top-40 left-1/2 -translate-x-1/2" />
         <div className="aurora w-72 h-72 bg-gold/10 top-20 -right-20 [animation-delay:-7s]" />
 
-        {/* Floating coins — the crypto wink, kept classy */}
+        {/* Floating coins - the crypto wink, kept classy */}
         <div className="coin hidden md:flex w-20 h-20 absolute top-24 left-[8%] items-center justify-center">
           <CoinGlyph className="w-11 h-11 text-gold-foreground" />
         </div>
@@ -60,7 +60,7 @@ export default function HomePage() {
 
           <p className="text-muted-foreground text-lg sm:text-xl max-w-xl mx-auto leading-relaxed">
             KYC once. Prove your credit score. Link your wallets.
-            The protocol pays you like it knows you — <span className="text-foreground font-medium">because it does.</span>
+            The protocol pays you like it knows you - <span className="text-foreground font-medium">because it does.</span>
           </p>
 
           <div className="flex gap-3.5 justify-center flex-wrap pt-2">
@@ -128,12 +128,12 @@ export default function HomePage() {
                 <p className="text-sm text-gold/80 mt-1.5 font-medium tracking-wide uppercase text-[11px]">You become the liquidity</p>
               </div>
               <p className="text-base text-muted-foreground leading-relaxed">
-                Stake the chain&apos;s own coin — native QIE, one transaction, no approvals.
+                Stake the chain&apos;s own coin - native QIE, one transaction, no approvals.
                 It becomes QIEDex liquidity, and 85% of the trading fees land with stakers, daily.
               </p>
               <ul className="text-[15px] text-muted-foreground space-y-2.5 pt-1">
                 <li className="flex items-center gap-3"><TrendingUp className="w-4 h-4 text-primary shrink-0" /> Up to 1.5× with a top score</li>
-                <li className="flex items-center gap-3"><Lock className="w-4 h-4 text-primary shrink-0" /> Lock 30–180 days, take +0.5–1.5% more</li>
+                <li className="flex items-center gap-3"><Lock className="w-4 h-4 text-primary shrink-0" /> Lock 30-180 days, take +0.5-1.5% more</li>
                 <li className="flex items-center gap-3"><ShieldCheck className="w-4 h-4 text-primary shrink-0" /> 5% of every harvest backs the insurance fund</li>
               </ul>
             </div>
@@ -154,7 +154,7 @@ export default function HomePage() {
               </div>
               <p className="text-base text-muted-foreground leading-relaxed">
                 Supply QUSDC and collect what borrowers pay. No lock, leave whenever.
-                Need cash instead? Borrow against WETH — your score talks the rates down.
+                Need cash instead? Borrow against WETH - your score talks the rates down.
               </p>
               <ul className="text-[15px] text-muted-foreground space-y-2.5 pt-1">
                 <li className="flex items-center gap-3"><TrendingUp className="w-4 h-4 text-gold shrink-0" /> Rates follow demand, block by block</li>
@@ -166,7 +166,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ════════════════════════ HOW IT WORKS — banded ════════════════════════ */}
+      {/* ════════════════════════ HOW IT WORKS - banded ════════════════════════ */}
       <section className="section-band px-6 sm:px-12 py-14 sm:py-16 space-y-12">
         <div className="flex items-end justify-between flex-wrap gap-4">
           <div className="max-w-xl">
@@ -186,7 +186,7 @@ export default function HomePage() {
             {
               n: "I",
               title: "Put your coins to work",
-              desc: "Stake native QIE or supply QUSDC to the lending pool — base APY starts the same minute.",
+              desc: "Stake native QIE or supply QUSDC to the lending pool - base APY starts the same minute.",
             },
             {
               n: "II",
@@ -196,7 +196,7 @@ export default function HomePage() {
             {
               n: "III",
               title: "Watch the multiplier",
-              desc: "Score 0–1000. At the top: 1.5× staking yield, 75% borrow LTV, −12% off your rates.",
+              desc: "Score 0-1000. At the top: 1.5× staking yield, 75% borrow LTV, −12% off your rates.",
             },
           ].map((item) => (
             <div key={item.n} className="group space-y-4">
@@ -257,9 +257,9 @@ export default function HomePage() {
       <section>
         <div className="tilt-card section-band section-band-gold px-7 sm:px-12 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="text-center sm:text-left max-w-lg">
-            <p className="font-heading text-3xl">Staking vs lending —<br className="sm:hidden" /> which one&apos;s yours?</p>
+            <p className="font-heading text-3xl">Staking vs lending -<br className="sm:hidden" /> which one&apos;s yours?</p>
             <p className="text-base text-muted-foreground mt-2.5">
-              You&apos;re not the first to ask. The FAQ settles it in plain language — liquidation, ZK proofs, risk, all of it.
+              You&apos;re not the first to ask. The FAQ settles it in plain language - liquidation, ZK proofs, risk, all of it.
             </p>
           </div>
           <Link

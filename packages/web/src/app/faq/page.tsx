@@ -34,10 +34,10 @@ const SECTIONS: FaqSection[] = [
         a: (
           <>
             YieldPass is a reputation-based DeFi protocol on the QIE blockchain. It has two
-            earning products — <strong>Staking</strong> and <strong>Lending</strong> — and one
+            earning products - <strong>Staking</strong> and <strong>Lending</strong> - and one
             superpower: your real-world reputation (KYC, credit history, on-chain track record)
-            becomes an on-chain <strong>credit score (0–1000)</strong> that unlocks higher yield
-            and better borrowing terms. Your personal data never goes on-chain — only
+            becomes an on-chain <strong>credit score (0-1000)</strong> that unlocks higher yield
+            and better borrowing terms. Your personal data never goes on-chain - only
             zero-knowledge proofs of it.
           </>
         ),
@@ -47,7 +47,7 @@ const SECTIONS: FaqSection[] = [
         a: (
           <>
             A wallet (MetaMask) connected to QIE Testnet. Staking uses native QIE (the gas coin
-            you already hold); lending uses QUSDC. Both work with score 0 — building reputation
+            you already hold); lending uses QUSDC. Both work with score 0 - building reputation
             is optional but multiplies your earnings up to <strong>1.5×</strong>.
           </>
         ),
@@ -56,7 +56,7 @@ const SECTIONS: FaqSection[] = [
         q: "What is QUSDC?",
         a: (
           <>
-            QUSDC is the USD-pegged stablecoin of the QIE ecosystem — it powers the
+            QUSDC is the USD-pegged stablecoin of the QIE ecosystem - it powers the
             <strong> lending</strong> side: supply it, borrow it, repay in it, all dollar-stable.
             <strong> Staking</strong> uses native QIE instead, because that&apos;s the asset the
             QIE ecosystem actually pays yield in.
@@ -67,7 +67,7 @@ const SECTIONS: FaqSection[] = [
   },
   {
     id: "stake-vs-lend",
-    title: "Staking vs Lending — what's the difference?",
+    title: "Staking vs Lending - what's the difference?",
     icon: <Scale className="w-4 h-4" />,
     items: [
       {
@@ -75,7 +75,7 @@ const SECTIONS: FaqSection[] = [
         a: (
           <div className="space-y-3">
             <p>
-              Two different yield engines with two different assets — <strong>QIE</strong> for
+              Two different yield engines with two different assets - <strong>QIE</strong> for
               staking (the ecosystem&apos;s earning coin), <strong>QUSDC</strong> for lending
               (the stable unit of account):
             </p>
@@ -100,13 +100,13 @@ const SECTIONS: FaqSection[] = [
                   </tr>
                   <tr className="border-t border-border/40">
                     <td className="p-2.5 font-medium text-foreground">APY driver</td>
-                    <td className="p-2.5">DEX trading volume — more swaps = more fees</td>
-                    <td className="p-2.5">Pool utilisation — more borrowing = higher rate</td>
+                    <td className="p-2.5">DEX trading volume - more swaps = more fees</td>
+                    <td className="p-2.5">Pool utilisation - more borrowing = higher rate</td>
                   </tr>
                   <tr className="border-t border-border/40">
                     <td className="p-2.5 font-medium text-foreground">Lock-up</td>
-                    <td className="p-2.5">Optional 30/90/180-day locks for a 1.05×–1.15× rewards boost</td>
-                    <td className="p-2.5">None — withdraw anytime (if liquidity available)</td>
+                    <td className="p-2.5">Optional 30/90/180-day locks for a 1.05×-1.15× rewards boost</td>
+                    <td className="p-2.5">None - withdraw anytime (if liquidity available)</td>
                   </tr>
                   <tr className="border-t border-border/40">
                     <td className="p-2.5 font-medium text-foreground">Score benefit</td>
@@ -133,7 +133,7 @@ const SECTIONS: FaqSection[] = [
         q: "Can I use both at the same time?",
         a: (
           <>
-            Yes — they are independent positions. Your dashboard shows the combined portfolio:
+            Yes - they are independent positions. Your dashboard shows the combined portfolio:
             staked amount, supplied amount, any debt, and total claimable yield across both.
           </>
         ),
@@ -153,7 +153,7 @@ const SECTIONS: FaqSection[] = [
             liquidity on QIEDex (the QIE chain&apos;s DEX). Every swap pays a fee to liquidity
             providers. A keeper harvests those fees daily and splits them: <strong>85% to
             stakers</strong>, 10% to the protocol treasury, 5% to the Insurance Fund. Your yield
-            is paid in QIE — no token printing, every coin of yield is a fee someone actually paid.
+            is paid in QIE - no token printing, every coin of yield is a fee someone actually paid.
           </>
         ),
       },
@@ -166,9 +166,9 @@ const SECTIONS: FaqSection[] = [
               Your APY = Base APY × Score Multiplier × Lock Multiplier
             </div>
             <ul className="list-disc list-inside space-y-1">
-              <li><strong>Base APY</strong> — pool-wide, recalculated after every harvest from real fees.</li>
-              <li><strong>Score multiplier</strong> — 1.0× (score 0–200) up to 1.5× (score 801–1000).</li>
-              <li><strong>Lock multiplier</strong> — 1.05× (30d), 1.10× (90d) or 1.15× (180d). Both multipliers scale your share of the pool, so they stack.</li>
+              <li><strong>Base APY</strong> - pool-wide, recalculated after every harvest from real fees.</li>
+              <li><strong>Score multiplier</strong> - 1.0× (score 0-200) up to 1.5× (score 801-1000).</li>
+              <li><strong>Lock multiplier</strong> - 1.05× (30d), 1.10× (90d) or 1.15× (180d). Both multipliers scale your share of the pool, so they stack.</li>
             </ul>
             <p className="text-xs">
               Boosted rate applies to your first 50,000 QIE staked; above that earns base APY
@@ -182,7 +182,7 @@ const SECTIONS: FaqSection[] = [
         a: (
           <>
             You pay an early-exit fee on the withdrawn amount: 1% (Silver 30d), 2% (Gold 90d) or
-            3% (Diamond 180d). The fee goes to the yield pool — it&apos;s redistributed to the
+            3% (Diamond 180d). The fee goes to the yield pool - it&apos;s redistributed to the
             stakers who kept their lock. Flexible stakes have no fee, ever.
           </>
         ),
@@ -216,7 +216,7 @@ const SECTIONS: FaqSection[] = [
               <li>0% utilisation → borrow 2%, supply 0%</li>
               <li>50% utilisation → borrow ~9.5%, supply ~3.8%</li>
               <li>80% utilisation (optimal) → borrow 14%, supply ~9%</li>
-              <li>100% utilisation → borrow 44% — the spike pushes borrowers to repay and attracts new supply</li>
+              <li>100% utilisation → borrow 44% - the spike pushes borrowers to repay and attracts new supply</li>
             </ul>
             <p>
               Suppliers earn the borrow interest minus a 20% protocol reserve. Everything is
@@ -231,7 +231,7 @@ const SECTIONS: FaqSection[] = [
           <>
             Deposit WETH as collateral, borrow QUSDC against it. Your max LTV (loan-to-value)
             depends on your credit score: 60% with no reputation up to 80% at Platinum. Type the
-            amount you want to borrow and the app auto-calculates the minimum collateral —
+            amount you want to borrow and the app auto-calculates the minimum collateral -
             add a buffer (+25% recommended) so price moves don&apos;t liquidate you.
           </>
         ),
@@ -247,14 +247,14 @@ const SECTIONS: FaqSection[] = [
             </p>
             <p><strong>The Health Factor zones (same semantics as major exchanges):</strong></p>
             <ul className="list-none space-y-1 text-xs">
-              <li><span className="text-primary font-semibold">≥ 1.50 — Safe.</span> Comfortable buffer; normal dips won&apos;t touch you.</li>
-              <li><span className="text-gold font-semibold">1.20–1.50 — Monitor.</span> Fine, but watch the ETH price.</li>
-              <li><span className="text-orange-400 font-semibold">1.00–1.20 — High risk.</span> One sharp dip from liquidation. Act now.</li>
-              <li><span className="text-red-400 font-semibold">&lt; 1.00 — Liquidated.</span> Anyone can close your position and take a 5% bonus.</li>
+              <li><span className="text-primary font-semibold">≥ 1.50 - Safe.</span> Comfortable buffer; normal dips won&apos;t touch you.</li>
+              <li><span className="text-gold font-semibold">1.20-1.50 - Monitor.</span> Fine, but watch the ETH price.</li>
+              <li><span className="text-orange-400 font-semibold">1.00-1.20 - High risk.</span> One sharp dip from liquidation. Act now.</li>
+              <li><span className="text-red-400 font-semibold">&lt; 1.00 - Liquidated.</span> Anyone can close your position and take a 5% bonus.</li>
             </ul>
             <p><strong>To stay safe:</strong></p>
             <ul className="list-disc list-inside space-y-1 text-xs">
-              <li>Open positions at HF ≥ 1.5 — use the &quot;+25% safer&quot; button</li>
+              <li>Open positions at HF ≥ 1.5 - use the &quot;+25% safer&quot; button</li>
               <li>Repay partially or add collateral when ETH price drops</li>
               <li>Platinum users (score 801+) get a <strong>2-hour Grace Shield</strong> warning window before liquidation can execute</li>
             </ul>
@@ -285,13 +285,13 @@ const SECTIONS: FaqSection[] = [
           <div className="space-y-2">
             <p>Three steps, all privacy-preserving:</p>
             <ul className="list-disc list-inside space-y-1">
-              <li><strong>QIEPass KYC</strong> — verify identity once → <Badge className="bg-primary/10 text-primary border-primary/25 text-[10px]">+200 pts</Badge></li>
-              <li><strong>Web2 proofs</strong> — prove your credit bureau score (CIBIL, Experian, Credit Karma) via Reclaim ZK proofs → <Badge className="bg-primary/10 text-primary border-primary/25 text-[10px]">up to +300 pts</Badge></li>
-              <li><strong>DEX wallets</strong> — link wallets with real on-chain history → <Badge className="bg-primary/10 text-primary border-primary/25 text-[10px]">up to +250 pts</Badge></li>
+              <li><strong>QIEPass KYC</strong> - verify identity once → <Badge className="bg-primary/10 text-primary border-primary/25 text-[10px]">+200 pts</Badge></li>
+              <li><strong>Web2 proofs</strong> - prove your credit bureau score (CIBIL, Experian, Credit Karma) via Reclaim ZK proofs → <Badge className="bg-primary/10 text-primary border-primary/25 text-[10px]">up to +300 pts</Badge></li>
+              <li><strong>DEX wallets</strong> - link wallets with real on-chain history → <Badge className="bg-primary/10 text-primary border-primary/25 text-[10px]">up to +250 pts</Badge></li>
             </ul>
             <p className="text-xs">
               KYC unlocks the other two steps. Scores are signed by the YieldPass oracle and
-              written on-chain — the underlying documents never leave your device.
+              written on-chain - the underlying documents never leave your device.
             </p>
           </div>
         ),
@@ -312,11 +312,11 @@ const SECTIONS: FaqSection[] = [
               </thead>
               <tbody className="text-muted-foreground">
                 {[
-                  ["No boost", "0–200", "1.00×", "60%", "—"],
-                  ["Bronze", "201–400", "1.10×", "64%", "−3%"],
-                  ["Silver", "401–600", "1.20×", "68%", "−6%"],
-                  ["Gold", "601–800", "1.35×", "72%", "−9%"],
-                  ["Platinum", "801–1000", "1.50×", "75%", "−12% + Grace Shield"],
+                  ["No boost", "0-200", "1.00×", "60%", "-"],
+                  ["Bronze", "201-400", "1.10×", "64%", "−3%"],
+                  ["Silver", "401-600", "1.20×", "68%", "−6%"],
+                  ["Gold", "601-800", "1.35×", "72%", "−9%"],
+                  ["Platinum", "801-1000", "1.50×", "75%", "−12% + Grace Shield"],
                 ].map(([band, range, apy, ltv, disc]) => (
                   <tr key={band} className="border-t border-border/40">
                     <td className="p-2 font-medium text-foreground">{band}</td>
@@ -335,7 +335,7 @@ const SECTIONS: FaqSection[] = [
         q: "Is my personal data stored on-chain?",
         a: (
           <>
-            No. KYC happens on QIEPass — YieldPass only receives a signed &quot;verified&quot;
+            No. KYC happens on QIEPass - YieldPass only receives a signed &quot;verified&quot;
             attestation. Credit bureau proofs use Reclaim Protocol zero-knowledge proofs: the chain
             only sees &quot;score ≥ X&quot; was proven, never the document, account number or even
             the exact score. Each document has a nullifier so it can&apos;t be reused by another
@@ -347,7 +347,7 @@ const SECTIONS: FaqSection[] = [
         q: "Does my KYC expire?",
         a: (
           <>
-            Yes — 90 days. Re-verify before expiry to keep your +200 pts and boost active. The
+            Yes - 90 days. Re-verify before expiry to keep your +200 pts and boost active. The
             dashboard shows your expiry date.
           </>
         ),
@@ -364,11 +364,11 @@ const SECTIONS: FaqSection[] = [
         a: (
           <div className="space-y-2">
             <ul className="list-disc list-inside space-y-1">
-              <li><strong>Insurance Fund</strong> — 5% of all yield accrues to a dedicated fund for shortfall events.</li>
-              <li><strong>Overcollateralisation</strong> — every loan is backed by more WETH value than the debt, enforced per block by the oracle.</li>
-              <li><strong>Anti-whale caps</strong> — boosted APY caps at $10k per wallet so the yield pool can&apos;t be drained.</li>
-              <li><strong>Proof nullifiers</strong> — one document = one wallet = one score boost. No farming.</li>
-              <li><strong>Liquidation engine + keeper bots</strong> — underwater positions are closed before they damage the pool.</li>
+              <li><strong>Insurance Fund</strong> - 5% of all yield accrues to a dedicated fund for shortfall events.</li>
+              <li><strong>Overcollateralisation</strong> - every loan is backed by more WETH value than the debt, enforced per block by the oracle.</li>
+              <li><strong>Anti-whale caps</strong> - boosted APY caps at $10k per wallet so the yield pool can&apos;t be drained.</li>
+              <li><strong>Proof nullifiers</strong> - one document = one wallet = one score boost. No farming.</li>
+              <li><strong>Liquidation engine + keeper bots</strong> - underwater positions are closed before they damage the pool.</li>
             </ul>
           </div>
         ),
@@ -377,14 +377,14 @@ const SECTIONS: FaqSection[] = [
         q: "What are the real risks?",
         a: (
           <div className="space-y-2">
-            <p>Honest answer — DeFi always has risk:</p>
+            <p>Honest answer - DeFi always has risk:</p>
             <ul className="list-disc list-inside space-y-1 text-xs">
-              <li><strong>Smart-contract risk</strong> — bugs are possible in any protocol.</li>
-              <li><strong>Variable APY</strong> — staking yield depends on real DEX volume; it can drop.</li>
-              <li><strong>Liquidation risk</strong> — borrowers can lose collateral if ETH falls fast.</li>
-              <li><strong>Utilisation risk</strong> — at 100% utilisation supply withdrawals queue until rates rebalance.</li>
+              <li><strong>Smart-contract risk</strong> - bugs are possible in any protocol.</li>
+              <li><strong>Variable APY</strong> - staking yield depends on real DEX volume; it can drop.</li>
+              <li><strong>Liquidation risk</strong> - borrowers can lose collateral if ETH falls fast.</li>
+              <li><strong>Utilisation risk</strong> - at 100% utilisation supply withdrawals queue until rates rebalance.</li>
             </ul>
-            <p className="text-xs">Never deposit more than you can afford to lose. This is testnet — perfect time to learn.</p>
+            <p className="text-xs">Never deposit more than you can afford to lose. This is testnet - perfect time to learn.</p>
           </div>
         ),
       },
@@ -407,7 +407,7 @@ export default function FaqPage() {
         </div>
         <h1 className="font-heading text-4xl sm:text-5xl tracking-tight">How YieldPass works</h1>
         <p className="text-muted-foreground text-base max-w-md mx-auto">
-          Staking, lending, reputation, risk — straight answers, no jargon.
+          Staking, lending, reputation, risk - straight answers, no jargon.
         </p>
       </div>
 

@@ -1,4 +1,4 @@
-# YieldPass — Operations Runbook
+# YieldPass - Operations Runbook
 
 ## Processes (production)
 
@@ -14,9 +14,9 @@ pm2 logs                       # tail everything
 
 | Process | What it does | If it dies |
 |---|---|---|
-| `yp-price-keeper` | Pushes ETH/USD to PriceOracle every 5 min (±0.5% drift or 1h heartbeat) | After 3h staleness, LendingPool borrow/liquidate revert (fail-safe) — lending freezes but no mispricing |
-| `yp-harvest` | Daily `harvestAndDistribute()` — realises QIEDex LP fees, splits 85/10/5 | APY stops updating; stakers' accrual continues against existing yield pool |
-| `yp-liquidation-bot` | Scans borrowers every 5 min, liquidates HF < 1.0 | Underwater positions persist — pool absorbs more risk per hour it's down |
+| `yp-price-keeper` | Pushes ETH/USD to PriceOracle every 5 min (±0.5% drift or 1h heartbeat) | After 3h staleness, LendingPool borrow/liquidate revert (fail-safe) - lending freezes but no mispricing |
+| `yp-harvest` | Daily `harvestAndDistribute()` - realises QIEDex LP fees, splits 85/10/5 | APY stops updating; stakers' accrual continues against existing yield pool |
+| `yp-liquidation-bot` | Scans borrowers every 5 min, liquidates HF < 1.0 | Underwater positions persist - pool absorbs more risk per hour it's down |
 
 The liquidation bot wallet must hold QUSDC working capital (it repays debt,
 receives collateral + 5% bonus).
@@ -36,7 +36,7 @@ npx ts-node src/fund-lending.ts          # seed lending pool supply
 1. **Deploy**: `PRICE_UPDATER_ADDRESS=0x<priceBot> npx hardhat deploy --network qie-mainnet --tags Hardened`
    (uses canonical WQIE/QUSDC/QIEDex router automatically)
 2. **Calibrate caps** to live QIE price: `YieldVaultQIE2.setBoostedCaps(std, whale, threshold)`
-3. **Enable LP deployment**: `YieldStrategyQIE2.setDeployRatio(2000)` (20%) — start small, raise gradually
+3. **Enable LP deployment**: `YieldStrategyQIE2.setDeployRatio(2000)` (20%) - start small, raise gradually
 4. **Set slippage** if pool is thin: `setSlippage(...)` (default 100 = 1%)
 5. **Sync oracle** to market: `npx ts-node src/update-price.ts`
 6. **Transfer admin to multisig** (after everything verified):

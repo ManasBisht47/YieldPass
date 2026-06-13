@@ -6,14 +6,14 @@ import type { LockTier } from "@/types/vault";
 
 interface ApyBreakdownProps {
   baseApyBps: number;          // pool-wide base APY in bps
-  score:      number;          // user credit score 0–1000
+  score:      number;          // user credit score 0-1000
   lockTier?:  LockTier;        // selected/active lock tier
   compact?:   boolean;         // smaller variant for sidebars
 }
 
 /**
  * Mirrors YieldVault.getEffectiveAPY: both the score band and the lock tier are
- * multipliers on your pool share, so they chain rather than add —
+ * multipliers on your pool share, so they chain rather than add -
  *
  *   Base APY  ×  score multiplier  ×  lock multiplier  =  Your APY
  */
@@ -78,7 +78,7 @@ export function ApyBreakdown({ baseApyBps, score, lockTier = 0, compact = false 
           <Award className="w-3.5 h-3.5 mt-0.5 text-gold shrink-0" />
           <span>
             Score <span className="num text-foreground">{score}</span> puts you in the{" "}
-            <span className="text-gold font-medium">{band.label}</span> band ({band.min}–{band.max} pts → {multiplier.toFixed(2)}× multiplier).
+            <span className="text-gold font-medium">{band.label}</span> band ({band.min}-{band.max} pts → {multiplier.toFixed(2)}× multiplier).
             {score < 1000 && (() => {
               const next = SCORE_BANDS.find(b => b.min > score);
               return next
@@ -91,8 +91,8 @@ export function ApyBreakdown({ baseApyBps, score, lockTier = 0, compact = false 
           <Lock className="w-3.5 h-3.5 mt-0.5 text-primary shrink-0" />
           <span>
             {lockInfo.bonusBps > 0
-              ? <><span className="text-primary font-medium">{lockInfo.label}</span> lock weights your pool share {lockMult.toFixed(2)}× — that&apos;s {(lockInfo.bonusBps / 100).toFixed(0)}% more rewards than an unlocked stake of the same size.</>
-              : <>No lock — a 30/90/180-day lock weights your share up to 1.15×.</>}
+              ? <><span className="text-primary font-medium">{lockInfo.label}</span> lock weights your pool share {lockMult.toFixed(2)}× - that&apos;s {(lockInfo.bonusBps / 100).toFixed(0)}% more rewards than an unlocked stake of the same size.</>
+              : <>No lock - a 30/90/180-day lock weights your share up to 1.15×.</>}
           </span>
         </div>
         <div className="flex items-start gap-2.5 text-xs text-muted-foreground">

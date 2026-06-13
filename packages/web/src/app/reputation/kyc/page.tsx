@@ -123,12 +123,12 @@ export default function KYCPage() {
       const data = await res.json();
       if (!res.ok) { toast.error(data.error ?? "Failed to start KYC"); return; }
 
-      // Wallet already verified on QIEPass — backend signed the txs, jump
+      // Wallet already verified on QIEPass - backend signed the txs, jump
       // straight to the on-chain confirm step (no polling needed).
       if (data.status === "ready") {
         setKycTxData(data.kycData as KYCTxData);
         setScoreUpdateData((data.scoreUpdate as ScoreUpdateData) ?? null);
-        toast.success("Already verified on QIEPass — confirm on-chain to finish.");
+        toast.success("Already verified on QIEPass - confirm on-chain to finish.");
         return;
       }
 
@@ -142,7 +142,7 @@ export default function KYCPage() {
         toast.info("Check your QIEPass app to approve the credential request.", { duration: 10000 });
       }
     } catch {
-      toast.error("Network error — try again");
+      toast.error("Network error - try again");
     }
   };
 
@@ -154,7 +154,7 @@ export default function KYCPage() {
 
     setSubmitting(true);
     try {
-      toast.info("Step 1/2 — Confirming KYC on-chain…");
+      toast.info("Step 1/2 - Confirming KYC on-chain…");
       await writeContractAsync({
         address:      registryAddr,
         abi:          REPUTATION_ABI,
@@ -168,7 +168,7 @@ export default function KYCPage() {
       });
 
       if (scoreUpdateData) {
-        toast.info("Step 2/2 — Adding +200 pts to credit score…");
+        toast.info("Step 2/2 - Adding +200 pts to credit score…");
         await writeContractAsync({
           address:      registryAddr,
           abi:          REPUTATION_ABI,
@@ -264,7 +264,7 @@ export default function KYCPage() {
           </CardContent>
         </Card>
 
-        {/* Unclaimed score banner — KYC done but +200 pts not applied yet */}
+        {/* Unclaimed score banner - KYC done but +200 pts not applied yet */}
         {scoreClaimNeeded && (
           <Card className="border-gold/25 bg-gold/5">
             <CardContent className="pt-4 pb-4 space-y-3">
@@ -275,7 +275,7 @@ export default function KYCPage() {
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-gold">Your +200 KYC pts weren&apos;t applied</p>
                   <p className="text-xs text-gold mt-0.5">
-                    KYC is verified on-chain but the score update transaction was skipped. Claim your points now — one transaction.
+                    KYC is verified on-chain but the score update transaction was skipped. Claim your points now - one transaction.
                   </p>
                 </div>
               </div>
@@ -335,7 +335,7 @@ export default function KYCPage() {
         {kycTxData && (
           <Card className="border-primary/25 bg-primary/5">
             <CardHeader className="pb-2 pt-3">
-              <CardTitle className="text-sm font-medium text-primary">Identity verified — confirm on-chain</CardTitle>
+              <CardTitle className="text-sm font-medium text-primary">Identity verified - confirm on-chain</CardTitle>
             </CardHeader>
             <CardContent className="pt-0 pb-3 space-y-3">
               <p className="text-xs text-primary">
@@ -362,11 +362,11 @@ export default function KYCPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Verified at</span>
-                  <span>{profile?.kycVerifiedAt ? new Date(profile.kycVerifiedAt * 1000).toLocaleDateString() : "—"}</span>
+                  <span>{profile?.kycVerifiedAt ? new Date(profile.kycVerifiedAt * 1000).toLocaleDateString() : "-"}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Expires</span>
-                  <span>{profile?.kycExpiry ? new Date(profile.kycExpiry * 1000).toLocaleDateString() : "—"}</span>
+                  <span>{profile?.kycExpiry ? new Date(profile.kycExpiry * 1000).toLocaleDateString() : "-"}</span>
                 </div>
                 <p className="text-xs text-muted-foreground pt-1">
                   KYC valid for 90 days. Re-verify before expiry to maintain your boost.
@@ -394,7 +394,7 @@ export default function KYCPage() {
         ) : (
           !kycTxData && !waitingKyc && (
             <>
-            {/* Sandbox notice — QIEPass identity isn't on mainnet yet */}
+            {/* Sandbox notice - QIEPass identity isn't on mainnet yet */}
             <Card className="border-gold/30 bg-gold/5">
               <CardContent className="pt-4 pb-4">
                 <div className="flex items-start gap-3">
@@ -405,7 +405,7 @@ export default function KYCPage() {
                     <p className="text-sm font-semibold text-gold">QIEPass is in sandbox</p>
                     <p className="text-xs text-gold/90 leading-relaxed">
                       Identity verification currently runs on QIEPass <span className="font-medium">testnet</span>.
-                      If you&apos;re a new user, complete KYC with a <span className="font-medium">testnet DID</span> —
+                      If you&apos;re a new user, complete KYC with a <span className="font-medium">testnet DID</span> -
                       create or use your QIE <span className="font-medium">testnet</span> identity in the QIEPass app.
                       Everything else in YieldPass (staking, lending, scores) is live on <span className="font-medium">mainnet</span>;
                       only this identity step is sandboxed for now.
@@ -418,14 +418,14 @@ export default function KYCPage() {
             <Card className="glow-card border-border/60">
               <CardHeader>
                 <CardTitle className="text-base font-heading">How it works</CardTitle>
-                <CardDescription className="text-xs">Privacy-preserving — no PII stored on-chain</CardDescription>
+                <CardDescription className="text-xs">Privacy-preserving - no PII stored on-chain</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <ol className="text-sm space-y-2.5 list-decimal list-inside text-muted-foreground">
-                  <li>Click Verify — opens QIEPass identity verification</li>
+                  <li>Click Verify - opens QIEPass identity verification</li>
                   <li>Complete KYC on QIEPass (if first time)</li>
                   <li>Approve the credential share request from YieldPass</li>
-                  <li>Return here — confirm with two on-chain transactions</li>
+                  <li>Return here - confirm with two on-chain transactions</li>
                 </ol>
                 <button
                   onClick={handleVerify}

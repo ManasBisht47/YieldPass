@@ -96,7 +96,7 @@ export function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          {/* Network chip — pulsing live dot */}
+          {/* Network chip - pulsing live dot */}
           <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] font-mono text-muted-foreground border border-border/60 rounded-full px-3 py-1">
             <span className={`w-1.5 h-1.5 rounded-full ${connected && isCorrectChain ? "bg-primary pulse-dot" : "bg-muted-foreground/50"}`} />
             {ACTIVE_CHAIN.name}

@@ -1,6 +1,6 @@
 // QIEPass Partner Integration
 // Docs: https://did-stapi.qie.digital (QIE Partner Integration)
-// Auth: HMAC-SHA256 — X-Public-Key + X-Signature + X-Timestamp on every request
+// Auth: HMAC-SHA256 - X-Public-Key + X-Signature + X-Timestamp on every request
 //
 // Setup: set QIEPASS_PUBLIC_KEY and QIEPASS_SECRET_KEY in .env.local
 
@@ -8,7 +8,7 @@ import { createHmac } from "crypto";
 
 const BASE_URL = "https://did-stapi.qie.digital";
 
-// Minimal claims — only what's needed to confirm real identity + jurisdiction
+// Minimal claims - only what's needed to confirm real identity + jurisdiction
 const REQUESTED_CLAIMS = ["firstName", "lastName", "nationality"];
 
 // ── Auth helpers ──────────────────────────────────────────────────────────────
@@ -38,10 +38,10 @@ function getKeys(): { publicKey: string; secretKey: string } | null {
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export type KYCStatus =
-  | "pending_kyc"      // new user — must complete KYC on QIEPass first
-  | "pending_consent"  // KYC done — waiting for user to approve credential share
-  | "consent_given"    // user approved — can now claim credential
-  | "consent_rejected" // user rejected — stop polling
+  | "pending_kyc"      // new user - must complete KYC on QIEPass first
+  | "pending_consent"  // KYC done - waiting for user to approve credential share
+  | "consent_given"    // user approved - can now claim credential
+  | "consent_rejected" // user rejected - stop polling
   | "already_verified" // wallet already verified with our partner (testnet QIEPass)
   | "error";
 
@@ -75,7 +75,7 @@ export async function createVerificationRequest(
 ): Promise<VerificationRequest> {
   const keys = getKeys();
 
-  // Dev fallback — no keys configured
+  // Dev fallback - no keys configured
   if (!keys) {
     return {
       requestId:   `demo-${Date.now()}`,
@@ -97,7 +97,7 @@ export async function createVerificationRequest(
   if (!res.ok) {
     const text = await res.text();
     // 409 = this wallet already did KYC with our partner account. That's not a
-    // failure — QIEPass is vouching for the identity. The on-chain record on
+    // failure - QIEPass is vouching for the identity. The on-chain record on
     // mainnet may still be missing, so we surface it as a distinct status and
     // let the caller mint the on-chain proof straight off this confirmation.
     if (res.status === 409 && /already verified/i.test(text)) {

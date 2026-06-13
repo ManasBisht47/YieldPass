@@ -15,7 +15,7 @@ const config: HardhatUserConfig = {
         version: "0.8.20",
         settings: {
           optimizer: { enabled: true, runs: 200 },
-          evmVersion: "paris",  // safe for QIE EVM — avoids PUSH0/MCOPY opcodes
+          evmVersion: "paris",  // safe for QIE EVM - avoids PUSH0/MCOPY opcodes
           viaIR: false,
         },
       },

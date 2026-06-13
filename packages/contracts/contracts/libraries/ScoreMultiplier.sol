@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-// ScoreMultiplier — maps a 0-1000 credit score to a share multiplier (bps,
+// ScoreMultiplier - maps a 0-1000 credit score to a share multiplier (bps,
 // 10000 = 1.0x). Five flat bands; capped at 1.5x on purpose so the boost stays
 // fundable from real fee revenue rather than promising yield we can't pay.
 library ScoreMultiplier {

@@ -56,6 +56,6 @@ interface INullifierRegistry {
         view
         returns (bool isLocked, address masterWallet);
 
-    /// @notice Convenience function — returns true if `wallet` is locked.
+    /// @notice Convenience function - returns true if `wallet` is locked.
     function isLocked(address wallet) external view returns (bool);
 }

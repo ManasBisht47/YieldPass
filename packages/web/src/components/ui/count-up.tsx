@@ -48,7 +48,7 @@ export function CountUp({ value, decimals = 0, prefix = "", suffix = "", duratio
       return () => { io.disconnect(); cancelAnimationFrame(raf); };
     }
 
-    // Value changed after initial run — quick settle
+    // Value changed after initial run - quick settle
     animate(fromRef.current, value, 450);
     return () => cancelAnimationFrame(raf);
   }, [value, duration]);

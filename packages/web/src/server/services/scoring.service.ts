@@ -15,19 +15,19 @@
 
 export interface ScoreComponents {
   kycBase:        number; // 0 or 200
-  creditBureau:   number; // 0–200
-  telecomProof:   number; // 0–100
-  utilityProof:   number; // 0–75
-  childWallets:   number; // 0–250
-  walletAge:      number; // 0–100
-  stakingHistory: number; // 0–75
+  creditBureau:   number; // 0-200
+  telecomProof:   number; // 0-100
+  utilityProof:   number; // 0-75
+  childWallets:   number; // 0-250
+  walletAge:      number; // 0-100
+  stakingHistory: number; // 0-75
 }
 
 export interface ScoreBreakdown {
   label:  string;
   pts:    number;
   maxPts: number;
-  pct:    number; // 0–100 for progress bar
+  pct:    number; // 0-100 for progress bar
 }
 
 export interface ScoreResult {
@@ -38,7 +38,7 @@ export interface ScoreResult {
   breakdown:  ScoreBreakdown[];
 }
 
-// Multipliers must track ScoreMultiplier.sol — capped at 1.5x, not the old 2.2x.
+// Multipliers must track ScoreMultiplier.sol - capped at 1.5x, not the old 2.2x.
 const SCORE_BANDS = [
   { min: 801, max: 1000, band: "Platinum", multiplier: "1.5×"  },
   { min: 601, max: 800,  band: "Gold",     multiplier: "1.35×" },
@@ -47,7 +47,7 @@ const SCORE_BANDS = [
   { min: 0,   max: 200,  band: "None",     multiplier: "1.0×"  },
 ] as const;
 
-// ── Credit bureau scoring (0–200) ────────────────────────────────────────────
+// ── Credit bureau scoring (0-200) ────────────────────────────────────────────
 // bureauScore: raw score from Paisabazar/Experian/Credit Karma
 // scoreMax:    900 for India bureaus, 850 for US/Canada/UK
 //
@@ -59,7 +59,7 @@ export function scoreCreditBureau(bureauScore: number, scoreMax: number = 900): 
   return Math.round(normalised * 200);
 }
 
-// ── Telecom proof scoring (0–100) ─────────────────────────────────────────────
+// ── Telecom proof scoring (0-100) ─────────────────────────────────────────────
 
 export function scoreTelecomProof(accountAgeDays?: number): number {
   const base     = 80;
@@ -67,13 +67,13 @@ export function scoreTelecomProof(accountAgeDays?: number): number {
   return Math.min(100, base + ageBonus);
 }
 
-// ── Utility proof scoring (0–75) ──────────────────────────────────────────────
+// ── Utility proof scoring (0-75) ──────────────────────────────────────────────
 
 export function scoreUtilityProof(): number {
   return 75;
 }
 
-// ── DEX child wallet scoring (0–250) ─────────────────────────────────────────
+// ── DEX child wallet scoring (0-250) ─────────────────────────────────────────
 
 export interface WalletMetrics {
   volumeUsd:  number;
@@ -98,7 +98,7 @@ export function scoreChildWallets(wallets: WalletMetrics[]): number {
   return Math.min(250, pts);
 }
 
-// ── Master wallet age scoring (0–100) ────────────────────────────────────────
+// ── Master wallet age scoring (0-100) ────────────────────────────────────────
 
 export function scoreWalletAge(firstTxTimestamp: number): number {
   const ageDays = (Date.now() / 1000 - firstTxTimestamp) / 86400;
@@ -107,7 +107,7 @@ export function scoreWalletAge(firstTxTimestamp: number): number {
   return Math.floor((ageDays - 30) / (365 - 30) * 100);
 }
 
-// ── Staking history scoring (0–75) ────────────────────────────────────────────
+// ── Staking history scoring (0-75) ────────────────────────────────────────────
 
 export function scoreStakingHistory(totalStakedUsd: number, stakeDays: number): number {
   const amountPts   = Math.min(40, Math.floor(totalStakedUsd / 5_000 * 40));

@@ -1,9 +1,9 @@
 import { qieMainnet } from "./qie-chain";
 
-// Active network — LIVE ON MAINNET
+// Active network - LIVE ON MAINNET
 export const ACTIVE_CHAIN = qieMainnet;
 
-// Contract addresses — set NEXT_PUBLIC_* env vars after deployment
+// Contract addresses - set NEXT_PUBLIC_* env vars after deployment
 export const CONTRACTS = {
   qusdc:              (process.env.NEXT_PUBLIC_QUSDC_ADDRESS              ?? "") as `0x${string}`,
   nullifierRegistry:  (process.env.NEXT_PUBLIC_NULLIFIER_REGISTRY_ADDRESS  ?? "") as `0x${string}`,
@@ -17,15 +17,15 @@ export const CONTRACTS = {
   interestRateModel:  (process.env.NEXT_PUBLIC_INTEREST_RATE_MODEL_ADDRESS   ?? "") as `0x${string}`,
 };
 
-// Anti-whale caps — staking is in native QIE (18 decimals)
+// Anti-whale caps - staking is in native QIE (18 decimals)
 export const STANDARD_BOOSTED_CAP_QIE = 50_000;
 export const WHALE_BOOSTED_CAP_QIE    = 75_000;
 export const WHALE_THRESHOLD_QIE      = 5_000_000;
 
-// QIE testnet faucet — for users with no QIE
+// QIE testnet faucet - for users with no QIE
 export const QIE_FAUCET_URL = "https://www.qie.digital/faucet";
 
-// Lock tiers. bonusBps is a bump to your *share weight*, not a flat APY add —
+// Lock tiers. bonusBps is a bump to your *share weight*, not a flat APY add -
 // it mirrors the contract's *_SHARE_BONUS constants (5/10/15%), so a Diamond
 // lock means you hold 15% more of the pool than an unlocked staker with the
 // same principal. penaltyBps is the early-exit fee. Both match YieldVault.sol.

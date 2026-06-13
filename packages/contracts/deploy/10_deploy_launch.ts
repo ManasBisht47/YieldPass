@@ -20,7 +20,7 @@ const MAINNET = {
   WETH:    "0x95322ccB3fb8dDefD210805EE18662762a0bc4A2",
 };
 
-const INITIAL_ETH_PRICE = "165000000000"; // $1650, 8 decimals — keeper syncs to live on first run
+const INITIAL_ETH_PRICE = "165000000000"; // $1650, 8 decimals - keeper syncs to live on first run
 
 const role = (hre: HardhatRuntimeEnvironment, name: string) =>
   hre.ethers.keccak256(hre.ethers.toUtf8Bytes(name));
@@ -93,7 +93,7 @@ const deploy: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     log: true, waitConfirmations: 1,
   });
 
-  // Testnet: no real DEX — keep all staked funds in reserve.
+  // Testnet: no real DEX - keep all staked funds in reserve.
   if (isTestnet) {
     await execute("YieldStrategyQIE2", { from: deployer, log: true }, "setDeployRatio", 0);
   }

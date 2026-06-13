@@ -33,7 +33,7 @@ export function useCurrentAPY(userAddress?: `0x${string}`) {
 export function useProjectedAPY(score: number, lockTier: LockTier, baseApyBps: number) {
   const band         = SCORE_BANDS.find(b => score >= b.min && score <= b.max)!;
   const lockBonus    = Object.values(LOCK_TIERS)[lockTier].bonusBps;
-  // score band × lock multiplier — both scale pool share, matching getEffectiveAPY
+  // score band × lock multiplier - both scale pool share, matching getEffectiveAPY
   const boostedBps   = Math.round((baseApyBps * band.multiplierBps * (10_000 + lockBonus)) / 1e8);
 
   return {

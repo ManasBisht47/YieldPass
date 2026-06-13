@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "../interfaces/funds/IInsuranceFund.sol";
 
-// InsuranceFund — backstop reserve. Gets topped up with 5% of every harvest
+// InsuranceFund - backstop reserve. Gets topped up with 5% of every harvest
 // (and early-exit penalties) and is there to cover IL / shortfalls so stakers
 // don't eat them. Only the strategy can pay in, only DISBURSER_ROLE can pay out.
 contract InsuranceFund is AccessControl, IInsuranceFund {
@@ -23,7 +23,7 @@ contract InsuranceFund is AccessControl, IInsuranceFund {
     // State
     // -------------------------------------------------------------------------
 
-    // reserve token — set at deploy (QUSDC on the lending side, WQIE on staking)
+    // reserve token - set at deploy (QUSDC on the lending side, WQIE on staking)
     IERC20 private immutable _qusdc;
 
     // -------------------------------------------------------------------------
@@ -38,7 +38,7 @@ contract InsuranceFund is AccessControl, IInsuranceFund {
     }
 
     // -------------------------------------------------------------------------
-    // External — state-changing
+    // External - state-changing
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IInsuranceFund
@@ -65,7 +65,7 @@ contract InsuranceFund is AccessControl, IInsuranceFund {
     }
 
     // -------------------------------------------------------------------------
-    // External — view
+    // External - view
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IInsuranceFund

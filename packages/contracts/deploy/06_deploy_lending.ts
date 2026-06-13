@@ -4,7 +4,7 @@ import { DeployFunction } from "hardhat-deploy/types";
 // WETH on QIE chain
 const WETH_QIE = "0x95322ccB3fb8dDefD210805EE18662762a0bc4A2";
 
-// ETH/USD initial price — $3000 with 8 decimals
+// ETH/USD initial price - $3000 with 8 decimals
 const INITIAL_ETH_PRICE = "300000000000"; // 3000_00000000
 
 const QUSDC_MAINNET = "0x3F43DA82eC9A4f5285F10FaF1F26EcA7319E5DA5";

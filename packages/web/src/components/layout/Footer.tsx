@@ -49,7 +49,7 @@ export function Footer() {
 
         <p className="text-[10px] text-muted-foreground text-center sm:text-right leading-relaxed">
           QIE Testnet · Yield from real fees, not emissions.<br className="hidden sm:block" />
-          DeFi involves risk — read the FAQ before depositing.
+          DeFi involves risk - read the FAQ before depositing.
         </p>
       </div>
     </footer>

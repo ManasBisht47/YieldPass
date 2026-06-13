@@ -4,7 +4,7 @@
 // we just echo "pending". Once consent is given and the credential's ready, we
 // claim it, then hand the frontend two oracle-signed payloads to submit on-chain:
 // one to flip kycVerified, one to add the +200 KYC points. We sign here but never
-// send the tx — the user's own wallet does that.
+// send the tx - the user's own wallet does that.
 
 import { NextRequest, NextResponse }         from "next/server";
 import type { Address }                      from "viem";

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-// InterestRateModel — standard jump-rate curve. Cheap to borrow while the pool
+// InterestRateModel - standard jump-rate curve. Cheap to borrow while the pool
 // is under-used, then the rate ramps hard past the 80% kink to pull utilisation
 // back down. Everything's in annual bps (100 bps = 1%).
 //

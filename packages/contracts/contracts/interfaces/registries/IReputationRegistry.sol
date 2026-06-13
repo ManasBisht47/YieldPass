@@ -11,7 +11,7 @@ interface IReputationRegistry {
     // -------------------------------------------------------------------------
 
     struct ReputationProfile {
-        uint16  creditScore;       // 0–1000
+        uint16  creditScore;       // 0-1000
         uint32  scoreUpdatedAt;    // unix timestamp of last score update
         uint32  kycVerifiedAt;     // unix timestamp of KYC verification
         uint32  kycExpiry;         // unix timestamp when KYC expires
@@ -47,7 +47,7 @@ interface IReputationRegistry {
     error ZeroAddress();
 
     // -------------------------------------------------------------------------
-    // State-changing — KYC
+    // State-changing - KYC
     // -------------------------------------------------------------------------
 
     /// @notice Records KYC verification for a master wallet.
@@ -67,7 +67,7 @@ interface IReputationRegistry {
     function revokeKYC(address master) external;
 
     // -------------------------------------------------------------------------
-    // State-changing — Credit Score
+    // State-changing - Credit Score
     // -------------------------------------------------------------------------
 
     /// @notice Updates the credit score for a master wallet.
@@ -84,7 +84,7 @@ interface IReputationRegistry {
     ) external;
 
     // -------------------------------------------------------------------------
-    // State-changing — Child Wallets
+    // State-changing - Child Wallets
     // -------------------------------------------------------------------------
 
     /// @notice Links a child wallet to a master wallet to contribute
@@ -102,14 +102,14 @@ interface IReputationRegistry {
     ) external;
 
     // -------------------------------------------------------------------------
-    // State-changing — ZK Proofs
+    // State-changing - ZK Proofs
     // -------------------------------------------------------------------------
 
     /// @notice Records that a ZK proof has been verified off-chain and
     ///         commits its hash on-chain to prevent resubmission.
     /// @param master             Wallet the proof belongs to.
     /// @param proofHash          Keccak256 hash of the verified proof payload.
-    /// @param proofTypeHash      keccak256(abi.encode(proofType, master)) — wallet-specific,
+    /// @param proofTypeHash      keccak256(abi.encode(proofType, master)) - wallet-specific,
     ///                           so observers cannot determine which bank/service was used.
     /// @param documentNullifier  SHA-256 of the extracted proof data (wallet-agnostic).
     ///                           Prevents the same real-world document from being used

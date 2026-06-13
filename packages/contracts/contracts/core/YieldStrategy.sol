@@ -13,7 +13,7 @@ import "../interfaces/external/IUniswapV2Factory.sol";
 import "../interfaces/external/IUniswapV2Pair.sol";
 import "../libraries/APYMath.sol";
 
-// YieldStrategy — handles where staked capital actually sits.
+// YieldStrategy - handles where staked capital actually sits.
 //
 // Kept token-generic on purpose so the same contract works on testnet (stub
 // router) and mainnet (real QIEDex): stakingToken is what the vault sends in
@@ -41,8 +41,8 @@ contract YieldStrategy is AccessControl, ReentrancyGuard, IYieldStrategy {
     // Immutables
     // -------------------------------------------------------------------------
 
-    IERC20          public immutable stakingToken;   // WQIE — what we account in
-    IERC20          public immutable pairToken;       // QUSDC — other LP leg
+    IERC20          public immutable stakingToken;   // WQIE - what we account in
+    IERC20          public immutable pairToken;       // QUSDC - other LP leg
     IUniswapV2Router02 public immutable router;
     IUniswapV2Factory  public immutable factory;
     IInsuranceFund  public immutable insuranceFund;
@@ -156,7 +156,7 @@ contract YieldStrategy is AccessControl, ReentrancyGuard, IYieldStrategy {
     }
 
     // -------------------------------------------------------------------------
-    // External — vault interactions
+    // External - vault interactions
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IYieldStrategy
@@ -193,7 +193,7 @@ contract YieldStrategy is AccessControl, ReentrancyGuard, IYieldStrategy {
         } else {
             // reserve isn't enough, so pull the rest out of the LP. removing
             // exactly the shortfall comes up short because the pairToken half
-            // gets swapped back and eats a swap fee — so over-remove ~2% (+ a
+            // gets swapped back and eats a swap fee - so over-remove ~2% (+ a
             // dust amount) to cover it when there's LP headroom. leftover stays
             // in reserve.
             uint256 shortfall = amount - reserve;
@@ -209,7 +209,7 @@ contract YieldStrategy is AccessControl, ReentrancyGuard, IYieldStrategy {
     }
 
     // -------------------------------------------------------------------------
-    // External — keeper
+    // External - keeper
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IYieldStrategy
@@ -229,7 +229,7 @@ contract YieldStrategy is AccessControl, ReentrancyGuard, IYieldStrategy {
     }
 
     // -------------------------------------------------------------------------
-    // External — view
+    // External - view
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IYieldStrategy
@@ -248,7 +248,7 @@ contract YieldStrategy is AccessControl, ReentrancyGuard, IYieldStrategy {
     }
 
     // -------------------------------------------------------------------------
-    // Internal — yield distribution
+    // Internal - yield distribution
     // -------------------------------------------------------------------------
 
     function _distributeYield(uint256 rawYield) internal {
@@ -271,7 +271,7 @@ contract YieldStrategy is AccessControl, ReentrancyGuard, IYieldStrategy {
     }
 
     // -------------------------------------------------------------------------
-    // Internal — QIEDex interactions (slippage-protected)
+    // Internal - QIEDex interactions (slippage-protected)
     // -------------------------------------------------------------------------
 
     /// @dev minOut = on-chain quote shaved by slippageBps.
@@ -370,7 +370,7 @@ contract YieldStrategy is AccessControl, ReentrancyGuard, IYieldStrategy {
 
         uint256 unrealised = currentLPValue - _tokenInLp;
 
-        // actually pull the gain out as tokens — an accounting number alone
+        // actually pull the gain out as tokens - an accounting number alone
         // can't be handed to stakers
         uint256 before = stakingToken.balanceOf(address(this));
         _removeLiquidity(unrealised);
@@ -381,7 +381,7 @@ contract YieldStrategy is AccessControl, ReentrancyGuard, IYieldStrategy {
     }
 
     // -------------------------------------------------------------------------
-    // Internal — helpers
+    // Internal - helpers
     // -------------------------------------------------------------------------
 
     function _lpPair() internal view returns (IUniswapV2Pair) {

@@ -1,4 +1,4 @@
-// Oracle service — shared signing logic used by proof/submit, proof/callback, zkproof/status.
+// Oracle service - shared signing logic used by proof/submit, proof/callback, zkproof/status.
 //
 // Centralising here prevents the three routes diverging silently and ensures
 // any fix (nonce collision, score formula, EIP-712 struct) applies everywhere.
@@ -183,14 +183,14 @@ export async function processAndSignProof(
   const documentNullifier = verifyResult.documentNullifier;
 
   // Did THIS wallet already commit this proof category on-chain? If so we're in
-  // a re-sync, not a fresh submit — used to relax replay checks and skip commit.
+  // a re-sync, not a fresh submit - used to relax replay checks and skip commit.
   let alreadyCommittedByWallet = false;
   try {
     const committed = await readCommittedProofTypeHashes(master);
     alreadyCommittedByWallet = committed.includes(proofTypeHash);
-  } catch { /* events unreadable — treat as fresh */ }
+  } catch { /* events unreadable - treat as fresh */ }
 
-  // Replay prevention — skipped for the wallet's own re-sync, since that's
+  // Replay prevention - skipped for the wallet's own re-sync, since that's
   // exactly re-using its own already-committed proof on purpose.
   if (!alreadyCommittedByWallet) {
     try {
@@ -200,7 +200,7 @@ export async function processAndSignProof(
       if (await readIsDocumentNullifierUsed(documentNullifier)) {
         return { error: "This document has already been used by another wallet" };
       }
-    } catch { /* contract not deployed — allow */ }
+    } catch { /* contract not deployed - allow */ }
   }
 
   const currentScore = await readCreditScore(master);

@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
   if (entry.error)  return NextResponse.json({ status: "error",  error:  entry.error  });
   if (entry.result) return NextResponse.json({ status: "ready",  result: entry.result });
 
-  // No result yet — poll Reclaim's status URL directly (works on localhost)
+  // No result yet - poll Reclaim's status URL directly (works on localhost)
   if (entry.reclaimStatusUrl) {
     try {
       const res  = await fetch(entry.reclaimStatusUrl, { headers: { "Content-Type": "application/json" } });

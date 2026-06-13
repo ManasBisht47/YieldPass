@@ -1,7 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 
-// QUSDC mainnet address — replace with testnet address when deploying to testnet.
+// QUSDC mainnet address - replace with testnet address when deploying to testnet.
 const QUSDC_ADDRESS = "0x3F43DA82eC9A4f5285F10FaF1F26EcA7319E5DA5";
 
 const deploy: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {

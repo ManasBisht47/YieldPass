@@ -39,7 +39,7 @@ async function main() {
   console.log("[fund] Supplying to LendingPool v2...");
   const depositTx = await wal.writeContract({ address: LENDING, abi: LENDING_ABI, functionName: "supply", args: [AMOUNT], gas: 150_000n, gasPrice: GAS_PRICE });
   const receipt = await pub.waitForTransactionReceipt({ hash: depositTx });
-  console.log(`[fund] Done! tx: ${depositTx} — status: ${receipt.status}`);
+  console.log(`[fund] Done! tx: ${depositTx} - status: ${receipt.status}`);
 
   const bal = await pub.readContract({ address: QUSDC, abi: ERC20_ABI, functionName: "balanceOf", args: [LENDING] });
   console.log(`[fund] LendingPool QUSDC balance: ${formatUnits(bal, 6)} QUSDC`);

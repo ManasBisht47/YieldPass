@@ -21,7 +21,7 @@ const deploy: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     if (mock) qusdcAddress = mock.address;
   }
 
-  // YieldVault address not deployed yet — use deployer as placeholder.
+  // YieldVault address not deployed yet - use deployer as placeholder.
   // Updated in script 05 after vault is deployed.
   const result = await deploy("YieldStrategy", {
     from: deployer,

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-// APYMath — small pure helpers for the vault/strategy. APY is always in bps
+// APYMath - small pure helpers for the vault/strategy. APY is always in bps
 // (100 = 1%). Amounts are whatever token the caller passes; the math is decimal-
 // agnostic so it works for both 18-dec WQIE and 6-dec QUSDC.
 library APYMath {
@@ -18,7 +18,7 @@ library APYMath {
     }
 
     /// @notice Portion of `staked` that's eligible for the boost. Anything over the
-    ///         cap only earns base — this is the anti-whale lever. Whales (stake
+    ///         cap only earns base - this is the anti-whale lever. Whales (stake
     ///         past whaleThreshold) get a slightly higher cap, not an unlimited one.
     function boostedPrincipal(
         uint256 staked,

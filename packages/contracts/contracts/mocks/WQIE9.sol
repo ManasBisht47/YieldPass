@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-/// @notice Canonical WETH9-style wrapper for native QIE — testnet deployment.
+/// @notice Canonical WETH9-style wrapper for native QIE - testnet deployment.
 ///         On mainnet the ecosystem's canonical WQIE is used instead.
 contract WQIE9 {
     string public name     = "Wrapped QIE";

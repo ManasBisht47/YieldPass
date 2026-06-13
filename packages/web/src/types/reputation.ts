@@ -15,12 +15,12 @@ export interface ChildWalletLinkStatus {
 
 export type ZKProofType =
   | "TELECOM"
-  // India — credit bureaus
+  // India - credit bureaus
   | "CREDIT_CIBIL_PAISABAZAR"
   | "CREDIT_EXPERIAN_IN"
-  // USA — credit bureaus
+  // USA - credit bureaus
   | "CREDIT_EXPERIAN_US"
-  // USA + Canada + UK — Credit Karma (TransUnion)
+  // USA + Canada + UK - Credit Karma (TransUnion)
   | "CREDIT_KARMA";
 
 export const CREDIT_PROOF_TYPES = new Set<ZKProofType>([

@@ -67,7 +67,7 @@ export default function CalculatorPage() {
   const profit     = finalValue - principal;
   const roiPct     = principal > 0 ? (profit / principal) * 100 : 0;
 
-  // Growth series for the chart — one point per month
+  // Growth series for the chart - one point per month
   const series = useMemo(() => {
     const pts: { m: number; v: number }[] = [];
     for (let m = 0; m <= months; m++) {
@@ -112,7 +112,7 @@ export default function CalculatorPage() {
           Yield Calculator
         </h1>
         <p className="text-base text-muted-foreground mt-2">
-          Run the numbers before you commit. Adjust amount, rate, time and compounding — see exactly where you land.
+          Run the numbers before you commit. Adjust amount, rate, time and compounding - see exactly where you land.
         </p>
       </div>
 
@@ -200,8 +200,8 @@ export default function CalculatorPage() {
                 </div>
                 <p className="text-[11px] text-muted-foreground">
                   {compound === "none"
-                    ? "Simple interest — yield paid on principal only."
-                    : `Yield re-staked ${COMPOUND_LABEL[compound].toLowerCase()} — interest earns interest.`}
+                    ? "Simple interest - yield paid on principal only."
+                    : `Yield re-staked ${COMPOUND_LABEL[compound].toLowerCase()} - interest earns interest.`}
                 </p>
               </div>
             </CardContent>
@@ -220,7 +220,7 @@ export default function CalculatorPage() {
                     onChange={e => setBaseApy(e.target.value)}
                     placeholder="7.5"
                   />
-                  <p className="text-[11px] text-muted-foreground">Protocol base rate — currently ~7.5%, varies with DEX volume.</p>
+                  <p className="text-[11px] text-muted-foreground">Protocol base rate - currently ~7.5%, varies with DEX volume.</p>
                 </div>
 
                 <div className="space-y-2">
@@ -238,7 +238,7 @@ export default function CalculatorPage() {
                       </button>
                     ))}
                   </div>
-                  <p className="text-[11px] text-muted-foreground">{SCORE_BANDS[scoreIdx].label} ({SCORE_BANDS[scoreIdx].min}–{SCORE_BANDS[scoreIdx].max} pts)</p>
+                  <p className="text-[11px] text-muted-foreground">{SCORE_BANDS[scoreIdx].label} ({SCORE_BANDS[scoreIdx].min}-{SCORE_BANDS[scoreIdx].max} pts)</p>
                 </div>
 
                 <div className="space-y-2">
@@ -357,7 +357,7 @@ export default function CalculatorPage() {
             <TriangleAlert className="w-5 h-5 text-gold shrink-0 mt-0.5" />
             <div className="text-xs text-muted-foreground leading-relaxed">
               <p className="text-sm font-semibold text-gold mb-1">This is an estimate, not a promise.</p>
-              Crypto is volatile — rates move, prices swing, and yield rarely accrues at a perfectly straight line.
+              Crypto is volatile - rates move, prices swing, and yield rarely accrues at a perfectly straight line.
               Base APY changes with real DEX volume and pool utilisation; the QIE price itself can rise or fall.
               Treat these figures as a guide to the <em>shape</em> of your returns, not a guaranteed outcome.
               Never deposit more than you can afford to lock up.
@@ -369,7 +369,7 @@ export default function CalculatorPage() {
       {/* CTA */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-border/60 bg-card glow-card px-6 sm:px-8 py-6">
         <p className="text-sm text-muted-foreground text-center sm:text-left">
-          Numbers look good? Put them to work — {mode === "stake" ? "stake native QIE in one transaction." : "supply QUSDC and start earning."}
+          Numbers look good? Put them to work - {mode === "stake" ? "stake native QIE in one transaction." : "supply QUSDC and start earning."}
         </p>
         <Link
           href={mode === "stake" ? "/stake" : "/lending"}

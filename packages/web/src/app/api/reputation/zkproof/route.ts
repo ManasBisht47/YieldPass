@@ -3,7 +3,7 @@ import { createProofSession, type ReclaimProofType } from "@/server/services/rec
 import { createSession } from "@/server/proofStore";
 import type { ZKProofType } from "@/types/reputation";
 
-// TELECOM excluded — no valid Reclaim provider UUID exists in public catalog yet
+// TELECOM excluded - no valid Reclaim provider UUID exists in public catalog yet
 const ALLOWED_PROOF_TYPES = new Set<string>([
   "CREDIT_CIBIL_PAISABAZAR",
   "CREDIT_EXPERIAN_IN",
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const session = await createProofSession(walletAddress, proofType as ReclaimProofType);
-    // Register in proof store — reclaimStatusUrl used for direct status polling
+    // Register in proof store - reclaimStatusUrl used for direct status polling
     createSession(session.sessionId, walletAddress, proofType, session.reclaimStatusUrl);
     return NextResponse.json({
       sessionId:  session.sessionId,

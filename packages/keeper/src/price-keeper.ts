@@ -1,7 +1,7 @@
 // Keeps the on-chain PriceOracle roughly in line with real ETH/USD.
 //
 // We don't push every cycle (gas). Only when the market has drifted past
-// DEVIATION_BPS or the on-chain price has gone stale past MAX_STALENESS_SEC —
+// DEVIATION_BPS or the on-chain price has gone stale past MAX_STALENESS_SEC -
 // the staleness push is really a heartbeat so LendingPool's 3h freshness check
 // never trips during quiet markets. If both feeds are down we just skip; better
 // a slightly old price than a made-up one.
@@ -95,7 +95,7 @@ export async function syncPrice(): Promise<void> {
 
   const market = await fetchMarketPrice();
   if (!market) {
-    log("All price feeds unreachable — skipping cycle (keeping last on-chain price).");
+    log("All price feeds unreachable - skipping cycle (keeping last on-chain price).");
     return;
   }
 
@@ -112,7 +112,7 @@ export async function syncPrice(): Promise<void> {
 
   const needsUpdate = deviationBps >= DEVIATION_BPS || ageSec >= MAX_STALENESS_SEC;
   if (!needsUpdate) {
-    log(`Within ${DEVIATION_BPS / 100}% band and fresh — no tx needed.`);
+    log(`Within ${DEVIATION_BPS / 100}% band and fresh - no tx needed.`);
     return;
   }
 
@@ -126,7 +126,7 @@ export async function syncPrice(): Promise<void> {
     gasPrice: GAS_PRICE,
   });
   const receipt = await pub.waitForTransactionReceipt({ hash: tx });
-  if (receipt.status === "reverted") throw new Error("setPrice reverted — check ADMIN role");
+  if (receipt.status === "reverted") throw new Error("setPrice reverted - check ADMIN role");
   log(`✓ Oracle updated to $${market.price.toFixed(2)} (tx ${tx.slice(0, 14)}…)`);
 }
 

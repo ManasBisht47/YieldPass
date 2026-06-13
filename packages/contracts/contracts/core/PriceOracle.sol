@@ -3,10 +3,10 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-// PriceOracle — ETH/USD, stored at 8 decimals like Chainlink.
+// PriceOracle - ETH/USD, stored at 8 decimals like Chainlink.
 //
 // Two ways to write it. The keeper bot (UPDATER_ROLE) goes through setPrice(),
-// which is capped at ±20% per update — if that key leaks, an attacker can nudge
+// which is capped at ±20% per update - if that key leaks, an attacker can nudge
 // the price but not teleport it. The admin/multisig can forceSetPrice() with no
 // cap, which is the escape hatch for when the keeper's been down through a real
 // >20% move and the bounded path would reject the true price.
@@ -34,7 +34,7 @@ contract PriceOracle is AccessControl {
         updatedAt   = block.timestamp;
     }
 
-    /// @notice Keeper path — bounded to ±20 % per update.
+    /// @notice Keeper path - bounded to ±20 % per update.
     function setPrice(uint256 price_) external onlyRole(UPDATER_ROLE) {
         if (price_ == 0) revert ZeroPrice();
 
@@ -50,7 +50,7 @@ contract PriceOracle is AccessControl {
         emit PriceUpdated(price_, block.timestamp, false);
     }
 
-    /// @notice Admin recovery path — unbounded (multisig only on mainnet).
+    /// @notice Admin recovery path - unbounded (multisig only on mainnet).
     function forceSetPrice(uint256 price_) external onlyRole(DEFAULT_ADMIN_ROLE) {
         if (price_ == 0) revert ZeroPrice();
         ethUsdPrice = price_;

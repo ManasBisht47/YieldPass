@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
   if (!sessionId) {
     console.warn("[proof/callback] No sessionId in body or proof context");
-    return NextResponse.json({ ok: true }); // don't error — Reclaim retries
+    return NextResponse.json({ ok: true }); // don't error - Reclaim retries
   }
 
   const entry = getEntry(sessionId);
@@ -53,6 +53,6 @@ export async function POST(req: NextRequest) {
     setError(sessionId, "Internal oracle error");
   }
 
-  // Always return 200 to Reclaim — errors are stored for polling
+  // Always return 200 to Reclaim - errors are stored for polling
   return NextResponse.json({ ok: true });
 }

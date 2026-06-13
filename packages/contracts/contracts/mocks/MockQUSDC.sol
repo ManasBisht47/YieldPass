@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-/// @notice Test double for QUSDC — 6-decimal ERC-20. Testnet only.
+/// @notice Test double for QUSDC - 6-decimal ERC-20. Testnet only.
 contract MockQUSDC is ERC20 {
     constructor() ERC20("Mock QUSDC", "QUSDC") {}
 

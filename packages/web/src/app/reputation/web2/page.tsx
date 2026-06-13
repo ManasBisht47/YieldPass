@@ -141,7 +141,7 @@ export default function Web2Page() {
   const [oracleResult, setOracleResult] = useState<OracleResult | null>(null);
   const [doneProofs, setDoneProofs]     = useState<Set<ZKProofType>>(new Set());
 
-  // On-chain source of truth — reads ZKProofCommitted event logs for this wallet
+  // On-chain source of truth - reads ZKProofCommitted event logs for this wallet
   const { done: onChainDone } = useOnChainProofs(address as `0x${string}` | undefined);
   // Union: localStorage (fast) + on-chain (authoritative for pre-feature submissions)
   const effectiveDone = new Set([...doneProofs, ...onChainDone]);
@@ -182,7 +182,7 @@ export default function Web2Page() {
           toast.error(data.error ?? "Proof verification failed");
           setPendingSession(null);
         }
-      } catch { /* network glitch — keep polling */ }
+      } catch { /* network glitch - keep polling */ }
     }, 3000);
 
     return stopPolling;
@@ -205,7 +205,7 @@ export default function Web2Page() {
       setPendingSession({ sessionId: data.sessionId, proofType });
       toast.info("Complete verification in the Reclaim tab. This page polls automatically.", { duration: 8000 });
     } catch {
-      toast.error("Network error — try again");
+      toast.error("Network error - try again");
     } finally {
       setSubmitting(null);
     }
@@ -217,15 +217,15 @@ export default function Web2Page() {
     if (!oracleResult || !address) return;
     const registryAddr = CONTRACTS.reputationRegistry;
     if (!registryAddr) {
-      toast.error("Contract not deployed — set NEXT_PUBLIC_REPUTATION_REGISTRY_ADDRESS");
+      toast.error("Contract not deployed - set NEXT_PUBLIC_REPUTATION_REGISTRY_ADDRESS");
       return;
     }
     try {
       // Re-sync (scoreOnly): proof is already committed, so we only push the
-      // corrected score — one transaction, no commit step.
+      // corrected score - one transaction, no commit step.
       if (oracleResult.commitProof) {
         setSubmitPhase("committing");
-        toast.info("Step 1/2 — Committing proof hash on-chain…");
+        toast.info("Step 1/2 - Committing proof hash on-chain…");
         await writeContractAsync({
           address:      registryAddr,
           abi:          REPUTATION_ABI,
@@ -242,7 +242,7 @@ export default function Web2Page() {
       }
 
       setSubmitPhase("scoring");
-      toast.info(oracleResult.commitProof ? "Step 2/2 — Updating credit score on-chain…" : "Syncing your credit score on-chain…");
+      toast.info(oracleResult.commitProof ? "Step 2/2 - Updating credit score on-chain…" : "Syncing your credit score on-chain…");
       await writeContractAsync({
         address:      registryAddr,
         abi:          REPUTATION_ABI,
@@ -302,7 +302,7 @@ export default function Web2Page() {
         <div>
           <h1 className="text-2xl font-heading font-bold">Credit Score Verification</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Verify your credit bureau score via ZK proof. No raw data leaves your device —
+            Verify your credit bureau score via ZK proof. No raw data leaves your device -
             only a cryptographic hash is stored on-chain.
           </p>
         </div>
@@ -345,7 +345,7 @@ export default function Web2Page() {
           <Card className="border-primary/25 bg-primary/5">
             <CardHeader className="pb-2 pt-3">
               <CardTitle className="text-sm font-medium text-primary">
-                Proof verified — ready to submit on-chain
+                Proof verified - ready to submit on-chain
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-0 pb-3 space-y-3">
@@ -355,7 +355,7 @@ export default function Web2Page() {
                 <p>New score: <span className="font-mono font-semibold">{oracleResult.newScore}</span></p>
               </div>
               <div className="text-xs bg-white/3 border border-primary/20 rounded p-2 text-primary">
-                Two on-chain transactions required — your wallet will prompt you twice.
+                Two on-chain transactions required - your wallet will prompt you twice.
               </div>
               <div className="flex gap-2">
                 <Button size="sm" onClick={handleSubmitOnChain} disabled={isSubmitting}
@@ -382,7 +382,7 @@ export default function Web2Page() {
             <div>
               <h2 className="text-base font-semibold">Credit Bureau</h2>
               <p className="text-xs text-muted-foreground mt-0.5">
-                {creditBureauDone ? "Proof submitted — re-verification not allowed." : "Select your country to see available providers."}
+                {creditBureauDone ? "Proof submitted - re-verification not allowed." : "Select your country to see available providers."}
               </p>
             </div>
             {creditBureauDone && (
@@ -392,7 +392,7 @@ export default function Web2Page() {
             )}
           </div>
 
-          {/* ── LOCKED state — bureau already verified ─────────────────────── */}
+          {/* ── LOCKED state - bureau already verified ─────────────────────── */}
           {creditBureauDone ? (
             <Card className="border-primary/20 bg-primary/4">
               <CardContent className="pt-4 pb-4 space-y-3">
@@ -402,7 +402,7 @@ export default function Web2Page() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-primary">
-                      {completedBureauInfo ? `${completedBureauInfo.flag ?? ""} ${completedBureauInfo.label}`.trim() : "Credit Bureau"} — Verified
+                      {completedBureauInfo ? `${completedBureauInfo.flag ?? ""} ${completedBureauInfo.label}`.trim() : "Credit Bureau"} - Verified
                     </p>
                     <p className="text-xs text-primary mt-0.5">
                       Proof hash committed on-chain
@@ -428,7 +428,7 @@ export default function Web2Page() {
                 {completedBureauInfo && (
                   <div className="border-t border-border/30 pt-3 space-y-2">
                     <p className="text-xs text-muted-foreground">
-                      Score lower than expected? Re-read your bureau score and sync it on-chain — no re-commit, just one transaction.
+                      Score lower than expected? Re-read your bureau score and sync it on-chain - no re-commit, just one transaction.
                     </p>
                     <Button
                       size="sm"
@@ -474,7 +474,7 @@ export default function Web2Page() {
                 ))}
               </div>
 
-              {/* Supported region — show providers */}
+              {/* Supported region - show providers */}
               {selectedRegionInfo.supported && (
                 <div className="space-y-2">
                   {providerInfoList.map(info => (
@@ -493,7 +493,7 @@ export default function Web2Page() {
                   <div className="text-xs bg-primary/8 border border-primary/20 rounded-lg p-3 text-primary space-y-1">
                     <p className="font-medium">How it works</p>
                     <p>1. Click Verify → log into the provider in the Reclaim tab</p>
-                    <p>2. Reclaim generates a ZK proof on your device — your raw score is never shared</p>
+                    <p>2. Reclaim generates a ZK proof on your device - your raw score is never shared</p>
                     <p>3. Score is mapped to YieldPass points and committed on-chain</p>
                   </div>
                 </div>
@@ -507,7 +507,7 @@ export default function Web2Page() {
                       Credit bureau verification not available for your region yet.
                     </p>
                     <p className="text-xs text-gold">
-                      Currently supported: India, USA, Canada, and UK. More regions coming soon — you&apos;ll be able to unlock boosted APY once your region is live.
+                      Currently supported: India, USA, Canada, and UK. More regions coming soon - you&apos;ll be able to unlock boosted APY once your region is live.
                     </p>
                     <p className="text-xs text-gold font-medium">
                       In the meantime, use Telecom Verification below to earn base reputation points.
@@ -528,7 +528,7 @@ export default function Web2Page() {
                 <div>
                   <h2 className="text-base font-semibold">Telecom Verification</h2>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    {telecomDone ? "Proof submitted — re-verification not allowed." : "Coming soon — telecom ZK proof provider is being onboarded."}
+                    {telecomDone ? "Proof submitted - re-verification not allowed." : "Coming soon - telecom ZK proof provider is being onboarded."}
                   </p>
                 </div>
                 {telecomDone && (
@@ -546,7 +546,7 @@ export default function Web2Page() {
                         ✓
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-primary">Telecom Account — Verified</p>
+                        <p className="text-sm font-semibold text-primary">Telecom Account - Verified</p>
                         <p className="text-xs text-primary mt-0.5">Proof hash committed on-chain</p>
                       </div>
                     </div>
@@ -565,7 +565,7 @@ export default function Web2Page() {
                           <Badge variant="outline" className="text-xs">Coming Soon</Badge>
                           <Badge variant="outline" className="text-xs font-mono">+up to {telecomInfo.maxPts} pts</Badge>
                         </div>
-                        <p className="text-xs text-muted-foreground">Telecom ZK proof provider is pending — check back soon.</p>
+                        <p className="text-xs text-muted-foreground">Telecom ZK proof provider is pending - check back soon.</p>
                       </div>
                       <Button size="sm" variant="outline" disabled className="shrink-0 cursor-not-allowed opacity-50">
                         Soon
@@ -581,14 +581,14 @@ export default function Web2Page() {
         {/* Scoring breakdown */}
         <Card className="border-dashed">
           <CardHeader className="pb-2 pt-3">
-            <CardTitle className="text-xs font-medium">Score breakdown — Credit Bureau</CardTitle>
+            <CardTitle className="text-xs font-medium">Score breakdown - Credit Bureau</CardTitle>
           </CardHeader>
           <CardContent className="pt-0 pb-3 text-xs text-muted-foreground space-y-0.5">
             <p>• Score 300 (min) → +0 pts</p>
             <p>• Score 600 → +100 pts</p>
             <p>• Score 750 → +150 pts</p>
             <p>• Score 900 / 850 (max) → +200 pts</p>
-            <p className="pt-1 text-foreground/60">Linear mapping — higher bureau score = more YieldPass points.</p>
+            <p className="pt-1 text-foreground/60">Linear mapping - higher bureau score = more YieldPass points.</p>
           </CardContent>
         </Card>
 
@@ -599,7 +599,7 @@ export default function Web2Page() {
             <p>• All proofs generated locally via Reclaim Protocol&apos;s TLS verification</p>
             <p>• Only a SHA-256 hash of the proof is stored on-chain</p>
             <p>• Which bureau or service you used is never visible on-chain</p>
-            <p>• Your exact credit score is never shared — only the earned points</p>
+            <p>• Your exact credit score is never shared - only the earned points</p>
             <p>• Each proof type submittable once per wallet address</p>
           </CardContent>
         </Card>

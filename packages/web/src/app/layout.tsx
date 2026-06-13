@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "YieldPass",
-    description: "Reputation-based yield on QIE — stake, earn from real QIEDex fees, borrow.",
+    description: "Reputation-based yield on QIE - stake, earn from real QIEDex fees, borrow.",
     images: ["/og.svg"],
   },
 };

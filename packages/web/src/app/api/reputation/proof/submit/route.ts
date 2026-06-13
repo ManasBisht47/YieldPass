@@ -1,4 +1,4 @@
-// The direct submit path (vs the Reclaim webhook in proof/callback) — frontend
+// The direct submit path (vs the Reclaim webhook in proof/callback) - frontend
 // posts the finished proof here, we verify + oracle-sign, and hand back two
 // payloads it then submits itself: commitZKProof and updateCreditScore. Same
 // processAndSignProof() the callback uses, so the two paths can't drift apart.

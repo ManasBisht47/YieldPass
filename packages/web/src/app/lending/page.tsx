@@ -52,7 +52,7 @@ function getTier(score: number) {
 }
 
 function bpsToPercent(bps: bigint | undefined, decimals = 2) {
-  if (!bps) return "—";
+  if (!bps) return "-";
   return (Number(bps) / 100).toFixed(decimals) + "%";
 }
 
@@ -149,15 +149,15 @@ export default function LendingPage() {
 
   // Market price (CoinGecko, 60s refresh) for display.
   // The contract enforces LTV with the ON-CHAIN oracle price, so all collateral
-  // math uses the LOWER of the two — conservative, txs never revert.
+  // math uses the LOWER of the two - conservative, txs never revert.
   const oracleUsd        = oraclePrice ? Number(oraclePrice as bigint) / 1e8 : 0;
   const ethUsd           = marketEthUsd > 0 ? marketEthUsd : oracleUsd > 0 ? oracleUsd : 3000;
   const safeEthUsd       = oracleUsd > 0 ? Math.min(ethUsd, oracleUsd) : ethUsd;
   const collateralAmt    = parseFloat(collateralInput) || 0;
   const collateralUsd    = collateralAmt * ethUsd;
   const maxBorrowPreview = collateralAmt * safeEthUsd * (tier.ltvPct / 100);
-  const personalRatePct  = personalRateBps ? (Number(personalRateBps) / 100).toFixed(2) : "—";
-  const baseRatePct      = borrowRateBps   ? (Number(borrowRateBps) / 100).toFixed(2)   : "—";
+  const personalRatePct  = personalRateBps ? (Number(personalRateBps) / 100).toFixed(2) : "-";
+  const baseRatePct      = borrowRateBps   ? (Number(borrowRateBps) / 100).toFixed(2)   : "-";
 
   // ── Auto-collateral (borrow-first UX) ─────────────────────────────────
   const borrowAmt         = parseFloat(borrowInput) || 0;
@@ -398,7 +398,7 @@ export default function LendingPage() {
                       <p className="num font-semibold mt-0.5">
                         ${supplyRateBps
                           ? ((supplyAmt * Number(supplyRateBps) / 100) / 12).toFixed(2)
-                          : "—"}
+                          : "-"}
                       </p>
                     </div>
                   </div>
@@ -483,7 +483,7 @@ export default function LendingPage() {
             <Card className="glow-card border-0">
               <CardContent className="pt-4 pb-4 space-y-2 text-xs text-muted-foreground">
                 <p className="font-semibold text-foreground text-sm">How rates work</p>
-                <p>Rates are set by a <strong className="text-foreground">Jump Rate Model</strong> — automatically adjusting based on pool utilisation.</p>
+                <p>Rates are set by a <strong className="text-foreground">Jump Rate Model</strong> - automatically adjusting based on pool utilisation.</p>
                 <div className="grid grid-cols-2 gap-2 mt-2">
                   <div className="bg-muted/30 border border-border/40 rounded-lg p-2.5 transition-colors hover:border-border">
                     <p className="text-foreground font-medium">0% util</p>
@@ -532,7 +532,7 @@ export default function LendingPage() {
               </CardContent>
             </Card>
 
-            {/* 1. Borrow amount — primary input */}
+            {/* 1. Borrow amount - primary input */}
             <Card className="glow-card border-0">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm">How much do you want to borrow?</CardTitle>
@@ -551,7 +551,7 @@ export default function LendingPage() {
               </CardContent>
             </Card>
 
-            {/* 2. Collateral — auto-filled, editable */}
+            {/* 2. Collateral - auto-filled, editable */}
             <Card className={`glow-card border-0 ${borrowAmt > 0 ? "ring-primary/30" : ""}`}>
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
@@ -618,7 +618,7 @@ export default function LendingPage() {
               </CardContent>
             </Card>
 
-            {/* Loan summary — receipt style */}
+            {/* Loan summary - receipt style */}
             {collateralAmt > 0 && borrowAmt > 0 && (
               <div className="rounded-2xl border border-border/60 bg-card glow-card overflow-hidden">
                 <div className="px-6 pt-4 pb-3">
@@ -657,7 +657,7 @@ export default function LendingPage() {
                   {"shield" in tier && tier.shield && (
                     <div className="flex items-center gap-2 bg-primary/10 rounded-lg px-3 py-2 mt-1">
                       <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
-                      <span className="text-[11px] text-primary">Platinum Grace Shield active — 2-hour window before liquidation</span>
+                      <span className="text-[11px] text-primary">Platinum Grace Shield active - 2-hour window before liquidation</span>
                     </div>
                   )}
                 </div>
@@ -674,7 +674,7 @@ export default function LendingPage() {
                 : "Approve & Borrow"}
             </Button>
 
-            {/* HF education — live preview marker while composing the loan */}
+            {/* HF education - live preview marker while composing the loan */}
             <HealthFactorGuide currentHF={previewHF > 0 ? previewHF : undefined} />
 
             {/* Tier comparison */}
@@ -808,7 +808,7 @@ export default function LendingPage() {
                     <span className="num text-gold">${bInterest.toFixed(6)} QUSDC</span>
                   </div>
 
-                  {/* Health Factor — the main gamified metric */}
+                  {/* Health Factor - the main gamified metric */}
                   <div className="border border-border/50 rounded-xl p-3.5 mt-1 bg-muted/15">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-[0.15em]">Health Factor</span>
@@ -826,10 +826,10 @@ export default function LendingPage() {
                       />
                     </div>
                     <p className="text-[10px] text-muted-foreground mt-1.5">
-                      {bHfBps >= 15000 ? "Safe — well above liquidation threshold"
-                        : bHfBps >= 12000 ? "Moderate — monitor your position"
-                        : bHfBps >= 10000 ? "Warning — close to liquidation"
-                        : "Danger — liquidation can be triggered"}
+                      {bHfBps >= 15000 ? "Safe - well above liquidation threshold"
+                        : bHfBps >= 12000 ? "Moderate - monitor your position"
+                        : bHfBps >= 10000 ? "Warning - close to liquidation"
+                        : "Danger - liquidation can be triggered"}
                     </p>
                   </div>
 
@@ -853,7 +853,7 @@ export default function LendingPage() {
               </Card>
             )}
 
-            {/* HF education — live marker on the user's actual position */}
+            {/* HF education - live marker on the user's actual position */}
             {hasBorrow && (
               <HealthFactorGuide currentHF={bHfBps > 0 && bHfBps !== Number.MAX_SAFE_INTEGER ? bHfBps / 10000 : undefined} />
             )}

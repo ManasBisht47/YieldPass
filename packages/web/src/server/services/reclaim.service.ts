@@ -1,4 +1,4 @@
-// Reclaim Protocol — ZK proofs for Web2 / credit bureau data
+// Reclaim Protocol - ZK proofs for Web2 / credit bureau data
 // Uses @reclaimprotocol/js-sdk (v5.x) for session creation and proof verification.
 // Docs: https://docs.reclaimprotocol.org/
 
@@ -89,7 +89,7 @@ export async function createProofSession(
 
   const proofRequest = await ReclaimProofRequest.init(appId, appSecret, providerId);
 
-  // Only set callback when deployed on HTTPS (not localhost) — Reclaim validates the URL
+  // Only set callback when deployed on HTTPS (not localhost) - Reclaim validates the URL
   // and will reject / fail the proof if it can't reach an HTTP localhost URL.
   if (REDIRECT_BASE_URL.startsWith("https://")) {
     proofRequest.setAppCallbackUrl(`${REDIRECT_BASE_URL}/api/reputation/proof/callback`);
@@ -164,7 +164,7 @@ function extractCreditSignals(
   }
 
   if (rawScore === 0) {
-    // Loud on purpose — if this fires, the proof verified but we couldn't find
+    // Loud on purpose - if this fires, the proof verified but we couldn't find
     // the score, so the user would silently get +0. The keys tell us what to add.
     console.warn(`[reclaim] ${proofType}: no bureau score found in params`, Object.keys(params));
     return undefined;
@@ -223,7 +223,7 @@ export async function verifyProof(
     .map(b => b.toString(16).padStart(2, "0"))
     .join("")) as `0x${string}`;
 
-  // Document nullifier — wallet-AGNOSTIC fingerprint of the real-world data.
+  // Document nullifier - wallet-AGNOSTIC fingerprint of the real-world data.
   // Prevents the same document (same bureau score page, same SIM account, etc.)
   // from being submitted across multiple wallets.
   // Strip contextAddress / contextMessage (wallet-specific injected fields),

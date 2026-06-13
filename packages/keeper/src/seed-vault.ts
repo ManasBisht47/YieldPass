@@ -1,5 +1,5 @@
 // One-shot: stake a little native QIE from the funder so the vault isn't empty.
-// Mainly needed right after a redeploy — TARGET_APY_BPS math divides by
+// Mainly needed right after a redeploy - TARGET_APY_BPS math divides by
 // totalStaked, so something has to be staked before the keeper can target a rate.
 //
 // Usage: npx ts-node src/seed-vault.ts [amountQie=0.5]
@@ -33,7 +33,7 @@ async function main() {
   const balance = await pub.getBalance({ address: funder.address });
   console.log(`[seed-vault] Vault: ${VAULT}`);
   console.log(`[seed-vault] Funder QIE balance: ${formatEther(balance)}`);
-  console.log(`[seed-vault] Staking ${formatEther(amount)} QIE (FLEXIBLE, native — single tx)...`);
+  console.log(`[seed-vault] Staking ${formatEther(amount)} QIE (FLEXIBLE, native - single tx)...`);
 
   const tx = await wal.writeContract({
     address: VAULT,

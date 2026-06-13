@@ -58,7 +58,7 @@ export default function StakePage() {
   const [reviewing, setReviewing]       = useState(false);
   const [activeTab, setActiveTab]       = useState("stake");
 
-  // Native QIE balance — staking asset is the chain's own coin
+  // Native QIE balance - staking asset is the chain's own coin
   const { data: balanceData, refetch: refetchBalance } = useBalance({
     address,
     query: { enabled: !!address },
@@ -90,8 +90,8 @@ export default function StakePage() {
       return;
     }
     try {
-      // Native staking — ONE transaction, no token approval needed.
-      toast.info("Confirm in your wallet — staking native QIE…");
+      // Native staking - ONE transaction, no token approval needed.
+      toast.info("Confirm in your wallet - staking native QIE…");
       await writeContractAsync({
         ...yieldVaultContract,
         functionName: "stake",
@@ -116,7 +116,7 @@ export default function StakePage() {
         functionName: "unstake",
         args: [parseEther(unstakeAmount)],
       });
-      toast.success("Unstaked — QIE sent to your wallet!");
+      toast.success("Unstaked - QIE sent to your wallet!");
       setUnstakeAmount("");
       refetch(); refetchBalance();
     } catch (e: any) {
@@ -216,7 +216,7 @@ export default function StakePage() {
                       </button>
                     </div>
                     <p className="text-[11px] text-muted-foreground">
-                      Native staking — one transaction, no token approval. ~{GAS_HEADROOM_QIE} QIE is kept aside for gas.
+                      Native staking - one transaction, no token approval. ~{GAS_HEADROOM_QIE} QIE is kept aside for gas.
                     </p>
                     {amountNum > maxStakeable && qieBalance > 0 && (
                       <div className="flex items-center gap-2 text-xs bg-destructive/8 border border-destructive/25 rounded-lg p-2.5 text-destructive">
@@ -250,7 +250,7 @@ export default function StakePage() {
                   </CardContent>
                 </Card>
 
-                {/* Lock tier selection — boarding-pass stubs */}
+                {/* Lock tier selection - boarding-pass stubs */}
                 <Card className="glow-card border-0">
                   <CardHeader>
                     <CardTitle className="text-sm">Lock Tier</CardTitle>
@@ -293,7 +293,7 @@ export default function StakePage() {
                   </CardContent>
                 </Card>
 
-                {/* APY breakdown — full equation, always visible */}
+                {/* APY breakdown - full equation, always visible */}
                 {baseApyBps > 0 ? (
                   <>
                     <ApyBreakdown
@@ -335,7 +335,7 @@ export default function StakePage() {
               </>
             ) : (
               <>
-                {/* Pre-submit review — receipt style with perforation */}
+                {/* Pre-submit review - receipt style with perforation */}
                 <div className="rounded-2xl border border-primary/30 bg-card glow-card-green overflow-hidden">
                   <div className="px-6 pt-5 pb-4">
                     <p className="text-[10px] font-mono uppercase tracking-[0.25em] text-primary/80 mb-3">Confirm · Stake Order</p>
@@ -365,7 +365,7 @@ export default function StakePage() {
                         <span className="text-gold">{LOCK_TIERS[selectedTier].penaltyBps / 100}% if withdrawn early</span>
                       </div>
                     )}
-                    <p className="text-[11px] text-muted-foreground pt-1">Native staking — your wallet prompts once. No approval step.</p>
+                    <p className="text-[11px] text-muted-foreground pt-1">Native staking - your wallet prompts once. No approval step.</p>
                   </div>
                 </div>
 
@@ -416,7 +416,7 @@ export default function StakePage() {
                     {lockInfo && lockInfo.daysLeft === 0 && currentTierKey !== "FLEXIBLE" && (
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Lock status</span>
-                        <Badge variant="secondary" className="text-primary bg-primary/12 border-primary/30">Unlocked — no fee</Badge>
+                        <Badge variant="secondary" className="text-primary bg-primary/12 border-primary/30">Unlocked - no fee</Badge>
                       </div>
                     )}
                   </CardContent>

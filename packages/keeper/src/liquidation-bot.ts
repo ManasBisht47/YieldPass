@@ -3,7 +3,7 @@
 // Borrowed events, checks getBorrowerPosition for each, and calls liquidate()
 // on the ones that are liquidatable.
 //
-// The keeper wallet needs QUSDC on hand to repay the debt — it gets the
+// The keeper wallet needs QUSDC on hand to repay the debt - it gets the
 // collateral plus a 5% bonus back. Score>800 borrowers have a 2h grace window
 // that the contract enforces, so those just revert and we pick them up later.
 //
@@ -51,7 +51,7 @@ async function scanAndLiquidate() {
   const pub = createPublicClient({ chain: qieTestnet, transport: http() });
   const wal = createWalletClient({ account: keeper, chain: qieTestnet, transport: http() });
 
-  // 1. Collect borrower addresses from events (chunked — RPC caps range at 10k)
+  // 1. Collect borrower addresses from events (chunked - RPC caps range at 10k)
   const latest = await pub.getBlockNumber();
   const fromBlock = latest > SCAN_BLOCKS ? latest - SCAN_BLOCKS : 0n;
   const found = new Set<`0x${string}`>();
@@ -66,7 +66,7 @@ async function scanAndLiquidate() {
     for (const l of logs) found.add(l.args.user as `0x${string}`);
   }
   const borrowers = [...found];
-  log(`Scanned blocks ${fromBlock}–${latest}: ${borrowers.length} unique borrower(s)`);
+  log(`Scanned blocks ${fromBlock}-${latest}: ${borrowers.length} unique borrower(s)`);
 
   // 2. Check each position
   for (const borrower of borrowers) {
@@ -88,7 +88,7 @@ async function scanAndLiquidate() {
       address: QUSDC, abi: ERC20_ABI, functionName: "balanceOf", args: [keeper.address],
     }) as bigint;
     if (balance < debt) {
-      log(`  ⚠ insufficient QUSDC to liquidate (need ${formatUnits(debt, 6)}, have ${formatUnits(balance, 6)}) — skipping`);
+      log(`  ⚠ insufficient QUSDC to liquidate (need ${formatUnits(debt, 6)}, have ${formatUnits(balance, 6)}) - skipping`);
       continue;
     }
 
@@ -104,17 +104,17 @@ async function scanAndLiquidate() {
         args: [borrower], gas: 600_000n, gasPrice: GAS_PRICE,
       });
       const r = await pub.waitForTransactionReceipt({ hash: tx });
-      log(`  ✓ LIQUIDATED ${borrower} — ${r.status} (tx ${tx.slice(0, 14)}…)`);
+      log(`  ✓ LIQUIDATED ${borrower} - ${r.status} (tx ${tx.slice(0, 14)}…)`);
     } catch (e: any) {
-      // GraceShieldActive etc. — contract enforces, bot retries next cycle
-      log(`  liquidation reverted (${e.shortMessage ?? e.message?.slice(0, 80)}) — will retry next cycle`);
+      // GraceShieldActive etc. - contract enforces, bot retries next cycle
+      log(`  liquidation reverted (${e.shortMessage ?? e.message?.slice(0, 80)}) - will retry next cycle`);
     }
   }
   log("Cycle complete.");
 }
 
 if (process.argv.includes("--daemon")) {
-  log("Liquidation bot daemon started — every 5 minutes");
+  log("Liquidation bot daemon started - every 5 minutes");
   scanAndLiquidate().catch(e => log(`ERROR: ${e.message?.slice(0, 120)}`));
   setInterval(() => {
     scanAndLiquidate().catch(e => log(`ERROR: ${e.message?.slice(0, 120)}`));

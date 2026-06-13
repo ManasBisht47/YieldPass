@@ -23,7 +23,7 @@ export function NetworkGuard({ children }: { children: React.ReactNode }) {
   }
 
   // Blocked: this wallet is permanently locked as a child wallet of another account.
-  // Child wallets cannot create or use a YieldPass account — they exist only to
+  // Child wallets cannot create or use a YieldPass account - they exist only to
   // contribute trading history to their master wallet's credit score.
   if (!isLoading && address && isLocked) {
     return (

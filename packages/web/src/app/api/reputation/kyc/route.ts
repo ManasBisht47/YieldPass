@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
   try {
     const request = await createVerificationRequest(walletAddress);
 
-    // Already KYC'd on QIEPass — skip the polling dance and hand back the
+    // Already KYC'd on QIEPass - skip the polling dance and hand back the
     // signatures so the user can finish on-chain right away.
     if (request.status === "already_verified") {
       const approval = await buildKycApproval(walletAddress as Address);

@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "../interfaces/registries/INullifierRegistry.sol";
 
-// NullifierRegistry — append-only "this child wallet belongs to that master"
+// NullifierRegistry - append-only "this child wallet belongs to that master"
 // ledger. Once a child is locked it can never move, which is what stops someone
 // recycling the same wallet to farm reputation across multiple masters.
 //
@@ -35,7 +35,7 @@ contract NullifierRegistry is AccessControl, INullifierRegistry {
     }
 
     // -------------------------------------------------------------------------
-    // External — state-changing
+    // External - state-changing
     // -------------------------------------------------------------------------
 
     /// @inheritdoc INullifierRegistry
@@ -64,7 +64,7 @@ contract NullifierRegistry is AccessControl, INullifierRegistry {
     }
 
     // -------------------------------------------------------------------------
-    // External — view
+    // External - view
     // -------------------------------------------------------------------------
 
     /// @inheritdoc INullifierRegistry

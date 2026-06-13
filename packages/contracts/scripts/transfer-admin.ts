@@ -1,5 +1,5 @@
 /**
- * transfer-admin.ts — mainnet launch-day script.
+ * transfer-admin.ts - mainnet launch-day script.
  *
  * Moves DEFAULT_ADMIN_ROLE on every protocol contract from the deployer EOA
  * to a multisig (Gnosis Safe), then renounces the deployer's admin role.
@@ -39,7 +39,7 @@ async function main() {
 
   console.log(`Deployer:  ${deployer.address}`);
   console.log(`New admin: ${newAdmin}`);
-  console.log(`Renounce:  ${renounce ? "YES — deployer loses admin" : "no (dry-run handover)"}\n`);
+  console.log(`Renounce:  ${renounce ? "YES - deployer loses admin" : "no (dry-run handover)"}\n`);
 
   for (const name of CONTRACTS) {
     const dep = await deployments.get(name).catch(() => null);

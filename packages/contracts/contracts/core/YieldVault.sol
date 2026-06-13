@@ -11,7 +11,7 @@ import "../interfaces/core/IWQIE.sol";
 import "../interfaces/registries/IReputationRegistry.sol";
 import "../libraries/ScoreMultiplier.sol";
 
-// YieldVault — native QIE staking entry point.
+// YieldVault - native QIE staking entry point.
 //
 // Yield distribution uses the MasterChef accumulator (accYieldPerShare), NOT an
 // apy-rate over a shared pool. The shared-pool version bit us: a whale could
@@ -41,7 +41,7 @@ contract YieldVault is AccessControl, ReentrancyGuard, IYieldVault {
     uint256 private constant BPS           = 10_000;
 
     // -------------------------------------------------------------------------
-    // Anti-whale caps (QIE, 18 decimals) — admin-settable for mainnet calibration
+    // Anti-whale caps (QIE, 18 decimals) - admin-settable for mainnet calibration
     // -------------------------------------------------------------------------
 
     uint256 public standardBoostedCap = 50_000e18;
@@ -127,7 +127,7 @@ contract YieldVault is AccessControl, ReentrancyGuard, IYieldVault {
     }
 
     // -------------------------------------------------------------------------
-    // External — user actions
+    // External - user actions
     // -------------------------------------------------------------------------
 
     /// @notice Stake native QIE (send as msg.value). Single tx, no approval.
@@ -177,7 +177,7 @@ contract YieldVault is AccessControl, ReentrancyGuard, IYieldVault {
 
         _updateShares(msg.sender);
 
-        // measure what actually lands instead of assuming `amount` — touching the
+        // measure what actually lands instead of assuming `amount` - touching the
         // LP costs a DEX round-trip fee, so the user gets the real recovered value
         uint256 beforeBal = IERC20(address(wqie)).balanceOf(address(this));
         strategy.withdrawFunds(amount, address(this));
@@ -275,7 +275,7 @@ contract YieldVault is AccessControl, ReentrancyGuard, IYieldVault {
     }
 
     // -------------------------------------------------------------------------
-    // External — view
+    // External - view
     // -------------------------------------------------------------------------
 
     function getPosition(address user) external view returns (StakePosition memory) {
@@ -303,7 +303,7 @@ contract YieldVault is AccessControl, ReentrancyGuard, IYieldVault {
     }
 
     // -------------------------------------------------------------------------
-    // Internal — accumulator
+    // Internal - accumulator
     // -------------------------------------------------------------------------
 
     /// @dev Move accrued-but-unbanked yield into pendingYield. Call this before
@@ -348,7 +348,7 @@ contract YieldVault is AccessControl, ReentrancyGuard, IYieldVault {
     }
 
     // -------------------------------------------------------------------------
-    // Internal — helpers
+    // Internal - helpers
     // -------------------------------------------------------------------------
 
     function _boostedCap(uint256 staked) internal view returns (uint256) {

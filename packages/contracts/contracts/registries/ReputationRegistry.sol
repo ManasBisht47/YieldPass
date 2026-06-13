@@ -7,12 +7,12 @@ import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import "../interfaces/registries/IReputationRegistry.sol";
 import "../interfaces/registries/INullifierRegistry.sol";
 
-// ReputationRegistry — the on-chain source of truth for who's KYC'd, their
+// ReputationRegistry - the on-chain source of truth for who's KYC'd, their
 // credit score, linked child wallets, and committed proofs.
 //
 // The trust model: the backend does the actual off-chain verification (KYC docs,
 // bureau scores, bank proofs) and signs an EIP-712 message. The chain only
-// checks that signature came from a SCORER_ROLE key — it never sees the raw
+// checks that signature came from a SCORER_ROLE key - it never sees the raw
 // data. Every write also burns a nonce so a signature can't be replayed.
 //
 // Deploy order matters: NullifierRegistry first, then this with REGISTRAR_ROLE
@@ -103,7 +103,7 @@ contract ReputationRegistry is AccessControl, EIP712, IReputationRegistry {
     }
 
     // -------------------------------------------------------------------------
-    // External — KYC
+    // External - KYC
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IReputationRegistry
@@ -139,7 +139,7 @@ contract ReputationRegistry is AccessControl, EIP712, IReputationRegistry {
     }
 
     // -------------------------------------------------------------------------
-    // External — Credit Score
+    // External - Credit Score
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IReputationRegistry
@@ -168,7 +168,7 @@ contract ReputationRegistry is AccessControl, EIP712, IReputationRegistry {
     }
 
     // -------------------------------------------------------------------------
-    // External — Child Wallets
+    // External - Child Wallets
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IReputationRegistry
@@ -216,7 +216,7 @@ contract ReputationRegistry is AccessControl, EIP712, IReputationRegistry {
     }
 
     // -------------------------------------------------------------------------
-    // External — ZK Proofs
+    // External - ZK Proofs
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IReputationRegistry
@@ -255,7 +255,7 @@ contract ReputationRegistry is AccessControl, EIP712, IReputationRegistry {
     }
 
     // -------------------------------------------------------------------------
-    // External — View
+    // External - View
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IReputationRegistry

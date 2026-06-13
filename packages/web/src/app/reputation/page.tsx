@@ -179,7 +179,7 @@ export default function ReputationPage() {
         {/* Steps */}
         <div className="space-y-3">
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.2em]">
-            Verification Steps — {completedSteps}/3 complete
+            Verification Steps - {completedSteps}/3 complete
           </p>
           {steps.map((step, i) => (
             <Card
@@ -267,7 +267,7 @@ export default function ReputationPage() {
                   )}
                   <div className="text-2xl mb-1">{tier.icon}</div>
                   <p className={`text-xs font-bold tracking-wide ${tier.labelColor}`}>{b.label}</p>
-                  <p className="num text-[10px] text-muted-foreground mt-0.5">{b.min}–{b.max}</p>
+                  <p className="num text-[10px] text-muted-foreground mt-0.5">{b.min}-{b.max}</p>
                   <div className={`num mt-2 text-lg font-bold ${tier.multiplierColor}`}>
                     {(b.multiplierBps / 10_000).toFixed(2)}×
                   </div>

@@ -1,7 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 
-// The hardening pass before mainnet — bounded oracle updates, slippage-guarded
+// The hardening pass before mainnet - bounded oracle updates, slippage-guarded
 // + token-generic strategy, settable anti-whale caps, and the lending oracle
 // staleness check. Same network-aware token wiring as the others (real addresses
 // on mainnet, mocks on testnet). Folded into 10_deploy_launch afterwards.
@@ -39,7 +39,7 @@ const deploy: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const stub = await deploy("MockDexStub", { from: deployer, args: [], log: true, waitConfirmations: 1 });
     ROUTER = stub.address;
     FACTORY = stub.address;
-    log(`Testnet stubs — WQIE9: ${WQIE}, MockQUSDC: ${QUSDC}, DexStub: ${stub.address}`);
+    log(`Testnet stubs - WQIE9: ${WQIE}, MockQUSDC: ${QUSDC}, DexStub: ${stub.address}`);
   }
 
   // ── PriceOracle v2 ────────────────────────────────────────────────────────
@@ -98,7 +98,7 @@ const deploy: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   await execute("YieldStrategyQIE2", { from: deployer, log: true }, "setVault", vault.address);
   await execute("InsuranceFundQIE",  { from: deployer, log: true }, "grantRole", disburserRole, vault.address);
 
-  // Testnet: no real DEX — keep everything in reserve.
+  // Testnet: no real DEX - keep everything in reserve.
   if (isTestnet) {
     await execute("YieldStrategyQIE2", { from: deployer, log: true }, "setDeployRatio", 0);
     log("deployRatio = 0 (testnet, no QIEDex)");
