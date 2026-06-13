@@ -43,6 +43,8 @@ if (MODE_PRICE_ONLY) {
     .then(() => process.exit(0))
     .catch(err => { console.error(err); process.exit(1); });
 } else {
+  // TODO: this daemon mode is for a real box (pm2). on the hosted demo the price
+  // sync runs from a github action cron instead - move to pm2 once we have a VPS.
   log(`Keeper started - harvest cron: "${CRON_EXPR}", price cron: "${PRICE_CRON}"`);
 
   // Daily yield harvest

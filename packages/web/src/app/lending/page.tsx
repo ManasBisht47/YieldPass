@@ -216,6 +216,8 @@ export default function LendingPage() {
     } catch (e: any) { toast.error(e?.shortMessage ?? "Transaction failed"); }
   };
 
+  // TODO: borrow path is built + guarded but not yet smoke-tested on mainnet
+  // (couldn't get test WETH in time). supply/redeem are verified.
   const handleBorrow = async () => {
     if (!collateralInput || !borrowInput) return;
     const colAmt = parseUnits(collateralInput, 18);
