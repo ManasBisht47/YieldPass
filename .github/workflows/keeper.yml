@@ -1,0 +1,55 @@
+name: keeper
+
+# Keeps the on-chain price oracle fresh without a dedicated server. Runs the
+# one-shot price sync on a schedule; harvest can be triggered manually.
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # every 10 minutes
+  workflow_dispatch:
+    inputs:
+      task:
+        description: Task to run
+        type: choice
+        default: price-sync
+        options:
+          - price-sync
+          - harvest
+
+# Never let two keeper runs overlap.
+concurrency:
+  group: keeper
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/keeper
+    env:
+      # Public network / contract config (safe to keep here).
+      RPC_URL: https://rpc1mainnet.qie.digital/
+      CHAIN_ID: "1990"
+      PRICE_ORACLE_ADDRESS: "0x98138ae95a7302DE36105fE801e033EF186384a6"
+      PRICE_DEVIATION_BPS: "50"
+      PRICE_MAX_STALENESS_SEC: "3600"
+      YIELD_STRATEGY_ADDRESS: "0x67239F1Da1c6c9F615C7A5b472a2a522EEC0271f"
+      YIELD_VAULT_ADDRESS: "0x7ea4E80BeD86d19AacaFc2BB5034F80FFd40C032"
+      WQIE_ADDRESS: "0x0087904D95BEe9E5F24dc8852804b547981A9139"
+      QUSDC_ADDRESS: "0x3F43DA82eC9A4f5285F10FaF1F26EcA7319E5DA5"
+      # Keys come from repo secrets — never hard-code these.
+      FUNDER_PRIVATE_KEY: ${{ secrets.PRICE_UPDATER_PRIVATE_KEY }}
+      KEEPER_PRIVATE_KEY: ${{ secrets.KEEPER_PRIVATE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install keeper dependencies
+        run: npm install --no-workspaces --no-audit --no-fund
+      - name: Sync oracle price
+        if: github.event_name == 'schedule' || github.event.inputs.task == 'price-sync'
+        run: npm run price-sync
+      - name: Harvest yield
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.task == 'harvest'
+        run: npm run harvest
