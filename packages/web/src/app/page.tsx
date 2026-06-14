@@ -1,7 +1,8 @@
 import Link from "next/link";
 import {
   Coins, Landmark, ShieldCheck, TrendingUp, ArrowRight, ArrowUpRight,
-  IdCard, Lock, CircleHelp, Sparkle,
+  IdCard, Lock, CircleHelp, Sparkle, Fingerprint, ArrowLeftRight,
+  CircleDollarSign, Check,
 } from "lucide-react";
 
 const TICKER_ITEMS = [
@@ -163,6 +164,59 @@ export default function HomePage() {
               </ul>
             </div>
           </Link>
+        </div>
+      </section>
+
+      {/* ════════════════════════ QIE ECOSYSTEM ════════════════════════ */}
+      <section className="space-y-12">
+        <div className="max-w-2xl">
+          <p className="eyebrow">Built on QIE</p>
+          <h2 className="font-heading text-4xl sm:text-5xl tracking-tight mt-4">
+            Wired into
+            <span className="text-muted-foreground"> the QIE stack.</span>
+          </h2>
+          <p className="text-muted-foreground text-base mt-4 leading-relaxed">
+            Not a silo. YieldPass plugs straight into the core QIE primitives,
+            every one of these is live in the protocol today.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {[
+            {
+              name: "QIEPass", tag: "Identity", icon: Fingerprint, gold: false,
+              desc: "DID-based KYC gates the reputation boost and keeps sybil wallets out.",
+            },
+            {
+              name: "QIEDex", tag: "Liquidity", icon: ArrowLeftRight, gold: true,
+              desc: "Staked QIE turns into WQIE/QUSDC liquidity. 85% of the trading fees flow back to stakers.",
+            },
+            {
+              name: "QUSDC", tag: "Stablecoin", icon: CircleDollarSign, gold: false,
+              desc: "The supply asset on the lending market and the stable leg of the staking LP.",
+            },
+            {
+              name: "Native QIE", tag: "Staking asset", icon: Coins, gold: true,
+              desc: "Stake the chain's own coin in one transaction, wrapped to WQIE under the hood.",
+            },
+          ].map((p) => {
+            const Icon = p.icon;
+            return (
+              <div key={p.name} className="tilt-card glow-card rounded-2xl border border-border/60 bg-card p-6 flex flex-col gap-4 h-full">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${p.gold ? "bg-gold/10 border-gold/25" : "bg-primary/10 border-primary/25"}`}>
+                  <Icon className={`w-5 h-5 ${p.gold ? "text-gold" : "text-primary"}`} />
+                </div>
+                <div className="space-y-1">
+                  <p className="font-heading text-xl">{p.name}</p>
+                  <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">{p.tag}</p>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed flex-1">{p.desc}</p>
+                <span className="inline-flex items-center gap-1.5 self-start text-[11px] font-medium text-primary bg-primary/10 border border-primary/25 rounded-full px-2.5 py-1">
+                  <Check className="w-3 h-3" /> Integrated
+                </span>
+              </div>
+            );
+          })}
         </div>
       </section>
 
