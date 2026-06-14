@@ -47,13 +47,16 @@ export function Navbar() {
 
   const handleConnect = () => {
     if (typeof window === "undefined") return;
-    const injectedConnector = connectors.find(c => c.type === "injected") ?? connectors[0];
     const hasWallet = !!(window as { ethereum?: unknown }).ethereum;
+    const injectedConnector = connectors.find(c => c.type === "injected");
+    const wcConnector       = connectors.find(c => c.type === "walletConnect");
+
     if (hasWallet && injectedConnector) {
-      connect({ connector: injectedConnector });
+      connect({ connector: injectedConnector });      // desktop extension / in-app browser
+    } else if (wcConnector) {
+      connect({ connector: wcConnector });            // WalletConnect: QR + mobile deep links
     } else {
-      // no injected provider (typical mobile browser) - reopen the dapp inside
-      // MetaMask's in-app browser, where window.ethereum is available
+      // fallback if WalletConnect isn't configured yet
       window.location.href = `https://metamask.app.link/dapp/${window.location.host}${window.location.pathname}`;
     }
   };
