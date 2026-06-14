@@ -34,7 +34,6 @@ export function Navbar() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const mmConnector    = connectors.find(c => c.id === "metaMask") ?? connectors[0];
   const connected      = mounted && isConnected;
   const isCorrectChain = chainId === ACTIVE_CHAIN.id;
 
@@ -44,6 +43,19 @@ export function Navbar() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     });
+  };
+
+  const handleConnect = () => {
+    if (typeof window === "undefined") return;
+    const injectedConnector = connectors.find(c => c.type === "injected") ?? connectors[0];
+    const hasWallet = !!(window as { ethereum?: unknown }).ethereum;
+    if (hasWallet && injectedConnector) {
+      connect({ connector: injectedConnector });
+    } else {
+      // no injected provider (typical mobile browser) - reopen the dapp inside
+      // MetaMask's in-app browser, where window.ethereum is available
+      window.location.href = `https://metamask.app.link/dapp/${window.location.host}${window.location.pathname}`;
+    }
   };
 
   return (
@@ -144,7 +156,7 @@ export function Navbar() {
             </div>
           ) : (
             <button
-              onClick={() => mmConnector && connect({ connector: mmConnector })}
+              onClick={handleConnect}
               className="hidden sm:block bg-primary text-primary-foreground text-sm font-semibold px-4 py-2 rounded-lg shadow-lg shadow-emerald-950/40 hover:shadow-[0_0_28px_-6px_var(--primary)] hover:-translate-y-px transition-all duration-200"
             >
               Connect Wallet
@@ -211,7 +223,7 @@ export function Navbar() {
               </div>
             ) : (
               <button
-                onClick={() => { mmConnector && connect({ connector: mmConnector }); setMobileOpen(false); }}
+                onClick={() => { handleConnect(); setMobileOpen(false); }}
                 className="w-full bg-primary text-primary-foreground text-sm font-semibold px-4 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
               >
                 Connect Wallet
