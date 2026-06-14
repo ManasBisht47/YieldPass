@@ -46,7 +46,7 @@ const SECTIONS: FaqSection[] = [
         q: "What do I need to start?",
         a: (
           <>
-            A wallet (MetaMask) connected to QIE Testnet. Staking uses native QIE (the gas coin
+            A wallet (MetaMask) connected to QIE Mainnet. Staking uses native QIE (the gas coin
             you already hold); lending uses QUSDC. Both work with score 0 - building reputation
             is optional but multiplies your earnings up to <strong>1.5×</strong>.
           </>
@@ -384,7 +384,7 @@ const SECTIONS: FaqSection[] = [
               <li><strong>Liquidation risk</strong> - borrowers can lose collateral if ETH falls fast.</li>
               <li><strong>Utilisation risk</strong> - at 100% utilisation supply withdrawals queue until rates rebalance.</li>
             </ul>
-            <p className="text-xs">Never deposit more than you can afford to lose. This is testnet - perfect time to learn.</p>
+            <p className="text-xs">Never deposit more than you can afford to lose. Start small while you get a feel for it.</p>
           </div>
         ),
       },

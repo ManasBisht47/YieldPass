@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ACTIVE_CHAIN } from "@/lib/constants";
 
 const FOOTER_LINKS = [
   { href: "/dashboard",  label: "Dashboard"  },
@@ -48,7 +49,7 @@ export function Footer() {
         </nav>
 
         <p className="text-[10px] text-muted-foreground text-center sm:text-right leading-relaxed">
-          QIE Testnet · Yield from real fees, not emissions.<br className="hidden sm:block" />
+          {ACTIVE_CHAIN.name} · Yield from real fees, not emissions.<br className="hidden sm:block" />
           DeFi involves risk - read the FAQ before depositing.
         </p>
       </div>
