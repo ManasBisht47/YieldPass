@@ -144,8 +144,9 @@ const ZK_COMMITTED_EVENT = parseAbiItem(
   "event ZKProofCommitted(address indexed master, bytes32 indexed proofHash, bytes32 proofTypeHash)",
 );
 
-const MAX_RANGE = 9_999n;
-const AVG_BLOCK_SECS = 4.3;
+const MAX_RANGE = 9_999n;                 // QIE RPC caps eth_getLogs at 10k blocks
+const DEEP_SCAN_BLOCKS = 300_000n;        // ~15 days of history - covers the launch/demo window
+const SCAN_CONCURRENCY = 6;               // how many chunk queries to run at once
 
 async function getLogsChunk(
   addr: Address,
@@ -170,50 +171,31 @@ export async function readCommittedProofTypeHashes(master: Address): Promise<`0x
   if (addr === "0x0000000000000000000000000000000000000000") return [];
 
   try {
-    const [currentBlock, latestBlock] = await Promise.all([
-      client.getBlockNumber(),
-      client.getBlock({ blockTag: "latest" }),
-    ]);
-    const currentTimestamp = Number(latestBlock.timestamp);
+    const currentBlock = await client.getBlockNumber();
+    const floor = currentBlock > DEEP_SCAN_BLOCKS ? currentBlock - DEEP_SCAN_BLOCKS : 0n;
 
-    // Get the master's profile to find scoreUpdatedAt timestamp
-    let scoreUpdatedAt = 0;
-    try {
-      const profile = await client.readContract({
-        address: addr,
-        abi:     ReputationRegistryABI.abi,
-        functionName: "getProfile",
-        args:    [master],
-      }) as { scoreUpdatedAt: number };
-      scoreUpdatedAt = Number(profile.scoreUpdatedAt);
-    } catch { /* ignore */ }
-
-    // Always query the last 9,999 blocks (covers ~12 hours)
-    const recentFrom = currentBlock > MAX_RANGE ? currentBlock - MAX_RANGE : 0n;
-    const chunks: Array<[bigint, bigint]> = [[recentFrom, currentBlock]];
-
-    // If scoreUpdatedAt is known and the proof was submitted before the recent window,
-    // estimate the block and add a targeted query around it
-    if (scoreUpdatedAt > 0) {
-      const secsBack = currentTimestamp - scoreUpdatedAt;
-      const blocksBack = BigInt(Math.round(secsBack / AVG_BLOCK_SECS));
-      const estimatedBlock = currentBlock > blocksBack ? currentBlock - blocksBack : 0n;
-
-      // Is it outside the already-covered recent window?
-      if (estimatedBlock < recentFrom) {
-        const halfWindow = 5_000n;
-        const from = estimatedBlock > halfWindow ? estimatedBlock - halfWindow : 0n;
-        const to   = estimatedBlock + halfWindow < currentBlock ? estimatedBlock + halfWindow : currentBlock;
-        chunks.push([from, to]);
-      }
+    // Walk the history in 10k-block ranges (newest first). Filtering by the
+    // indexed `master` keeps each query cheap, so we can cover real history
+    // instead of just the last few hours - that earlier window kept missing
+    // older commits once a wallet had been around for more than a day.
+    const ranges: Array<[bigint, bigint]> = [];
+    let to = currentBlock;
+    while (to >= floor) {
+      const from = to > MAX_RANGE ? to - MAX_RANGE : 0n;
+      ranges.push([from < floor ? floor : from, to]);
+      if (from <= floor) break;
+      to = from - 1n;
     }
 
-    // Run all chunks in parallel
-    const results = await Promise.all(
-      chunks.map(([from, to]) => getLogsChunk(addr, master, from, to).catch(() => [] as `0x${string}`[])),
-    );
-
-    return [...new Set(results.flat())];
+    const hashes = new Set<`0x${string}`>();
+    for (let i = 0; i < ranges.length; i += SCAN_CONCURRENCY) {
+      const batch = ranges.slice(i, i + SCAN_CONCURRENCY);
+      const results = await Promise.all(
+        batch.map(([from, to]) => getLogsChunk(addr, master, from, to).catch(() => [] as `0x${string}`[])),
+      );
+      results.flat().forEach(h => hashes.add(h));
+    }
+    return [...hashes];
   } catch { return []; }
 }
 
