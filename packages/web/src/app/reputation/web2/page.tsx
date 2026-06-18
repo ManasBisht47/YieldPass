@@ -289,8 +289,11 @@ export default function Web2Page() {
   const telecomInfo         = PROOF_TYPE_INFO.find(p => p.type === "TELECOM")!;
   const isSubmitting        = submitPhase === "committing" || submitPhase === "scoring";
 
-  // True when ANY credit bureau proof has been committed on-chain for this wallet
-  const creditBureauDone     = [...CREDIT_PROOF_TYPES].some(t => effectiveDone.has(t));
+  // Lock the section once a bureau proof exists. The event-log / localStorage
+  // check tells us *which* provider, but it can miss older commits, so we also
+  // fall back to the score: KYC is a flat +200 and the bureau is the only other
+  // active source today, so anything above 200 means a bureau proof is committed.
+  const creditBureauDone     = [...CREDIT_PROOF_TYPES].some(t => effectiveDone.has(t)) || score > 200;
   const completedBureauInfo  = PROOF_TYPE_INFO.find(p => CREDIT_PROOF_TYPES.has(p.type) && effectiveDone.has(p.type));
 
   return (
